@@ -1,0 +1,5 @@
+name: AntiMobSpawn
+version: 1
+main: uk.samlex.antimobspawn.AntiMobSpawn
+author: Sam_lex
+description: Stops monsters spawning on the selected block type
