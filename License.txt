@@ -52,7 +52,7 @@ modification follow.
 'Copyright' also means copyright-like laws that apply to other kinds of works, such as 
 semiconductor masks.
 'The Program' refers to any copyrightable work licensed under this License. Each 
-licensee is addressed as 'you'. “Licensees” and 'recipients' may be individuals or 
+licensee is addressed as 'you'. 'Licensees' and 'recipients' may be individuals or 
 organizations.
 To 'modify' a work means to copy from or adapt all or part of the work in a fashion 
 requiring copyright permission, other than the making of an exact copy. The resulting 
@@ -77,7 +77,7 @@ criterion.
 
 1. Source Code.
 The 'source code' for a work means the preferred form of the work for making 
-modifications to it. “Object code” means any non-source form of a work.
+modifications to it. 'Object code' means any non-source form of a work.
 A 'Standard Interface' means an interface that either is an official standard defined 
 by a recognized standards body, or, in the case of interfaces specified for a particular 
 programming language, one that is widely used among developers working in that language.
@@ -206,7 +206,7 @@ a 'consumer product', which means any tangible personal property which is normal
 for personal, family, or household purposes, or (2) anything designed or sold for 
 incorporation into a dwelling. In determining whether a product is a consumer product, 
 doubtful cases shall be resolved in favor of coverage. For a particular product received 
-by a particular user, “normally used” refers to a typical or common use of that class of 
+by a particular user, 'normally used' refers to a typical or common use of that class of 
 product, regardless of the status of the particular user or of the way in which the 
 particular user actually uses, or expects or is expected to use, the product. A product 
 is a consumer product regardless of whether the product has substantial commercial, 
@@ -265,7 +265,7 @@ trademarks, or service marks; or
 conveys the material (or modified versions of it) with contractual assumptions of 
 liability to the recipient, for any liability that these contractual assumptions directly 
 impose on those licensors and authors.
-All other non-permissive additional terms are considered “further restrictions” within 
+All other non-permissive additional terms are considered 'further restrictions' within 
 the meaning of section 10. If the Program as you received it, or any part of it, contains 
 a notice stating that it is governed by this License along with a term that is a further 
 restriction, you may remove that term. If a license document contains a further 
@@ -339,7 +339,7 @@ contributor's essential patent claims, to make, use, sell, offer for sale, impor
 otherwise run, modify and propagate the contents of its contributor version. In the 
 following three paragraphs, a 'patent license' is any express agreement or commitment, 
 however denominated, not to enforce a patent (such as an express permission to practice 
-a patent or covenant not to sue for patent infringement). To “grant” such a patent 
+a patent or covenant not to sue for patent infringement). To 'grant' such a patent 
 license to a party means to make such an agreement or commitment not to enforce a patent 
 against the party. If you convey a covered work, knowingly relying on a patent license, 
 and the Corresponding Source of the work is not available for anyone to copy, free of 
