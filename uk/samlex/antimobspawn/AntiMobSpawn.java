@@ -18,7 +18,7 @@
  */
 
 package uk.samlex.antimobspawn;
-//TODO Add support for multiple blocks and no-spawn zones in a set cuboid and do a manual code cleanup 
+//TODO Add support no-spawn zones in a set cuboid
 import java.io.IOException; 
 import org.bukkit.event.Event; 
 import org.bukkit.plugin.PluginDescriptionFile; 
@@ -31,28 +31,61 @@ import org.bukkit.plugin.PluginManager;
  */
 
 public class AntiMobSpawn extends JavaPlugin {
+
+	//declare entity listener
 	private final AntiMobSpawnEntityListener entityListener = new AntiMobSpawnEntityListener(this);
 
+	//variable for prefix
+	private static String prefix = "";
+
+	//what to do on plugin disable
 	@Override
 	public void onDisable() {
-		System.out.println("AntiMobSpawn Disabled!");
+
+		//print goodbye message
+		System.out.println(prefix() + " Disabled, GoodBye!");
 	}
 
+	//what to do on plugin enable
 	@Override
 	public void onEnable() {
+
+		//make instance of plugin manager
 		PluginManager pm = getServer().getPluginManager();
 
+		//register event
 		pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Highest, this);
 
-		final PluginDescriptionFile pdfFile = this.getDescription();
+		//print welcome message
+		System.out.println(prefix() + " Enabled and ready to stop those pesky creepers!" );
 
-		System.out.println(pdfFile.getName() + " (version " + pdfFile.getVersion() + ") is enabled!" );
-
+		//try and run scanner method from other class
 		try {
+
+			//call method
 			AntiMobSpawnDisk.scanner();
 		} catch (IOException e) {
-			System.out.println("[WARNING] There was a problem while trying to load the properties file for AntiMobSpawn");
+
+			//print message if error
+			System.out.println(prefix() + " [WARNING] There was a problem while trying to load the properties file for AntiMobSpawn");
 		}
+	}
+
+	//make a prefix class for messages
+	public String prefix(){
+
+		//get info from plguin.yml
+		PluginDescriptionFile desc = this.getDescription();
+
+		//make and return prefix
+		prefix = "[" + desc.getName() + " v" + desc.getVersion() + "]";
+
+		return prefix;
+	}
+
+	//getter for prefix
+	public static String getPrefix() {
+		return prefix;
 	}
 }
 

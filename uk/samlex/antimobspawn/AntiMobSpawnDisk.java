@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -31,26 +32,47 @@ import java.util.Scanner;
  * @author Sam_Lex
  */
 
-public class AntiMobSpawnDisk extends AntiMobSpawn { 
-	
-	public static int stopSpawnBlock; 
-	
-    public static void scanner() throws IOException { 
-    	final File properties = new File("AntiMobSpawnBlocks.properties"); 
-    	if (properties.createNewFile() == true){ 
-    		
-    		System.out.println("Properties file not found...creating new properties file");
+public class AntiMobSpawnDisk { 
 
-    		final Writer output = new BufferedWriter(new FileWriter(properties));
-    	    output.write("18");
-    	    output.close(); 
-    	} 
-    	
-    	final Scanner diskScanner = new Scanner(properties); 
-    	stopSpawnBlock = diskScanner.nextInt(); 
-    }
-    
-	public final static int getStopSpawnBlock() { 
-		return stopSpawnBlock;
+	//declare and make list for string values of blocks monsters can't spawn on
+	private static ArrayList<Integer> stopSpawnBlocks = new ArrayList<Integer>();
+
+	//declare scanner method
+	public static void scanner() throws IOException { 
+
+		//declare file object
+		final File properties = new File("AntiMobSpawnBlocks.properties"); 
+
+		//make new file if one doesn't exist
+		if (properties.createNewFile() == true){ 
+
+			//print message when making file
+			System.out.println(AntiMobSpawn.getPrefix() + " Properties file not found...creating new properties file"); //need to make prefix static
+
+			//open output to file
+			final Writer output = new BufferedWriter(new FileWriter(properties));
+
+			//output '18' into file and 'close' file
+			output.write("0\n18");
+			output.close(); 
+		} 
+
+		//declare scanner object
+		final Scanner diskScanner = new Scanner(properties); 
+
+		//while there is another number in file, keep scanning
+		while(diskScanner.hasNextInt()){
+
+			stopSpawnBlocks.add(diskScanner.nextInt());
+		}
+
+		//close file
+		diskScanner.close();
+		//System.out.println(getStopSpawnBlocks()); //debug print
+	}
+
+	//getter for list of blocks
+	public final static ArrayList<Integer> getStopSpawnBlocks() { 
+		return stopSpawnBlocks;
 	}
 }

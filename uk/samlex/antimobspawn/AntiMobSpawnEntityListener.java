@@ -30,22 +30,34 @@ import org.bukkit.entity.CreatureType;
 
 public class AntiMobSpawnEntityListener extends EntityListener {
 
+	//plugin variable
 	public static AntiMobSpawn plugin;
 
+	//plugin variable is an instance of plugin
 	public AntiMobSpawnEntityListener(AntiMobSpawn instance){
 		plugin = instance;
 	}
 
-    public void onCreatureSpawn(CreatureSpawnEvent event) {
+	//mob spawn event catcher
+	public void onCreatureSpawn(CreatureSpawnEvent event) {
 
-    	if (event.getCreatureType() != CreatureType.CHICKEN && event.getCreatureType() != CreatureType.COW && event.getCreatureType() != CreatureType.PIG 
-    			&& event.getCreatureType() != CreatureType.SHEEP && event.getCreatureType() != CreatureType.WOLF){
- 
-    		if (event.getLocation().getBlock().getRelative(0,-1,0).getTypeId() == AntiMobSpawnDisk.getStopSpawnBlock()){
-    			event.setCancelled(true); 
-    			//java.lang.System.out.println("Stopping Mob..."); 
-    		}
-    	}
-    }
+		//checks if it is a neutral mob
+		if (event.getCreatureType() != CreatureType.CHICKEN && event.getCreatureType() != CreatureType.COW && event.getCreatureType() != CreatureType.PIG 
+				&& event.getCreatureType() != CreatureType.SHEEP && event.getCreatureType() != CreatureType.WOLF){
+
+			//checks if the block it is spawning on is in the list
+			for (int block : AntiMobSpawnDisk.getStopSpawnBlocks()) {
+
+
+				if (event.getLocation().getBlock().getRelative(0,-1,0).getTypeId() == block){
+
+					//if it is, stop the spawn
+					event.setCancelled(true); 
+
+					//java.lang.System.out.println("Stopping Mob..."); //debug print
+				}
+			}
+		}
+	}
 }
 
