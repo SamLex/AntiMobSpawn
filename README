@@ -2,4 +2,6 @@ AntiMobSpawn by Sam_Lex
 
 Bukkit Plugin
 
-Stops monsters from spawning on the selected block types
+Allows the user to select a number of options to do with stopping creatures spawning.
+The user can choose which creatures not to spawn, which block types they can't spawn 
+on and areas where they can't spawn. All options can be set per world as well!

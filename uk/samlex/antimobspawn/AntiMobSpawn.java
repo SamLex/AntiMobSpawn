@@ -1,7 +1,7 @@
 /*
  * This file is part of the Bukkit plugin AntiMobSpawn
  * 
- * Copyright (C) 2011 <euan_hunt@hotmail.co.uk>
+ * Copyright (C) 2011 <sam_lex@gmx.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,74 +18,54 @@
  */
 
 package uk.samlex.antimobspawn;
-//TODO Add support no-spawn zones in a set cuboid
-import java.io.IOException; 
-import org.bukkit.event.Event; 
-import org.bukkit.plugin.PluginDescriptionFile; 
-import org.bukkit.plugin.java.JavaPlugin; 
-import org.bukkit.plugin.PluginManager; 
+//TODO [WORKING]Ready for implementation of Cuboid Eraser methods
+import org.bukkit.event.Event;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
-/**
+/*
  * AntiMobSpawn 
- * @author Sam_Lex
+ * Made by Sam_Lex, 2011
  */
 
 public class AntiMobSpawn extends JavaPlugin {
 
-	//declare entity listener
-	private final AntiMobSpawnEntityListener entityListener = new AntiMobSpawnEntityListener(this);
-
-	//variable for prefix
-	private static String prefix = "";
-
-	//what to do on plugin disable
-	@Override
-	public void onDisable() {
-
-		//print goodbye message
-		System.out.println(prefix() + " Disabled, GoodBye!");
-	}
-
-	//what to do on plugin enable
+	//code to be executed when enabled
 	@Override
 	public void onEnable() {
 
-		//make instance of plugin manager
+		//constructs the prefix
+		AntiMobSpawnVariables.prefix(this.getDescription());
+
+		//gets a list of all the worlds on the server
+		AntiMobSpawnVariables.setWorlds(this.getServer().getWorlds());
+
+		//puts default values into the Hashmaps
+		AntiMobSpawnVariables.fillMaps();
+
+		//runs disk related code
+		new AntiMobSpawnDisk(this);
+
+		//creates an instance of the entity listener
+		AntiMobSpawnEntityListener entityListener = new AntiMobSpawnEntityListener();
+
+		//gets the plugin's plugin manager
 		PluginManager pm = getServer().getPluginManager();
 
-		//register event
-		pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Highest, this);
+		//register the event to get passed to this plugin
+		pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.High, this);
 
-		//print welcome message
-		System.out.println(prefix() + " Enabled and ready to stop those pesky creepers!" );
-
-		//try and run scanner method from other class
-		try {
-
-			//call method
-			AntiMobSpawnDisk.scanner();
-		} catch (IOException e) {
-
-			//print message if error
-			System.out.println(prefix() + " [WARNING] There was a problem while trying to load the properties file for AntiMobSpawn");
-		}
+		//prints welcome message
+		AntiMobSpawnVariables.print("Enabled and ready to stop those pesky creepers!");
 	}
 
-	//make a prefix class for messages
-	public String prefix(){
+	//code to be executed when disabled
+	@Override
+	public void onDisable() {
 
-		//get info from plguin.yml
-		PluginDescriptionFile desc = this.getDescription();
-
-		//make and return prefix
-		prefix = "[" + desc.getName() + " v" + desc.getVersion() + "]";
-
-		return prefix;
+		//prints goodbye message
+		AntiMobSpawnVariables.print("Disabled, Goodbye!");
 	}
 
-	//getter for prefix
-	public static String getPrefix() {
-		return prefix;
-	}
+
 }
-
