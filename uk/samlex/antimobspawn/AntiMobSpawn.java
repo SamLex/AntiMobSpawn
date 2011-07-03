@@ -18,7 +18,7 @@
  */
 
 package uk.samlex.antimobspawn;
-//TODO [WORKING]Ready for implementation of Cuboid Eraser methods
+
 import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
