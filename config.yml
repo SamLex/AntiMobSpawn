@@ -1,0 +1,36 @@
+multi: true
+Default: 
+   all blocks: false
+   blocks: 
+    - '18'
+    - '46'
+   spawn: 
+     Bed: true
+     Custom: false
+     Egg: true
+     Lightning: true
+     Natural: true
+     Spawner: true
+   creature: 
+      blaze: true
+      cave spider: true
+      chicken: false
+      cow: false
+      creeper: true
+      ender dragon: true
+      enderman: true
+      ghast: true
+      giant: true
+      monster: true
+      mushroom cow: false
+      pig: false
+      pig zombie: true
+      sheep: false
+      silverfish: false
+      skeleton: true
+      slime: true
+      spider: true
+      squid: false
+      villager: false
+      wolf: false
+      zombie: true

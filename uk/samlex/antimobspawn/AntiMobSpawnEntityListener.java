@@ -1,7 +1,7 @@
 /*
- * This file is part of the Bukkit plugin AntiMobSpawn
+ * AntiMobSpawn, a plugin for the Minecraft server modification Bukkit. Provides control of in game creature spawns
  * 
- * Copyright (C) 2011 <sam_lex@gmx.com>
+ * Copyright (C) 2011 Euan James Hunter <euanhunter117@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,435 +19,208 @@
 
 package uk.samlex.antimobspawn;
 
-import org.bukkit.block.BlockFace;
+import java.util.Iterator;
+
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityListener;
+import org.bukkit.plugin.Plugin;
 
-/*
- * Part of AntiMobSpawn
- * Made by Sam_Lex, 2011
- */
+public class AntiMobSpawnEntityListener extends EntityListener{
 
-public class AntiMobSpawnEntityListener extends EntityListener {
+	private Plugin inst;
 
-	//stores data on the event
-	private CreatureSpawnEvent event;
-	private final String defaultValue = "default";
-	private final String defaultFileValue = "defaultFile";
+	/*
+	 * Constructor that is passed the instance of the plugin
+	 */
+	protected AntiMobSpawnEntityListener(Plugin plugin){
+		this.inst = plugin;
+	}
 
-	//code to be executed on creature spawn 
+	/*
+	 * Handles the creature spawns. Runs through all the criteria set in the configuration file using a number of different methods*/
 	@Override
-	public void onCreatureSpawn(CreatureSpawnEvent event){
-
-		this.event = event;
-
-		//begin the checking
-		checker();
+	public void onCreatureSpawn(CreatureSpawnEvent cse){
+		if(this.inst.getConfig().getBoolean("multi")){
+			if(!this.inst.getConfig().contains(cse.getLocation().getWorld().getName())){
+				String w = cse.getLocation().getWorld().getName();
+				switch(cse.getSpawnReason()){
+				case BED:
+					if(this.inst.getConfig().getBoolean(w+".spawn.Bed"))
+						checker(w,cse);
+					break;
+				case CUSTOM:
+					if(this.inst.getConfig().getBoolean(w+".spawn.Custom"))
+						checker(w,cse);
+					break;
+				case EGG:
+					if(this.inst.getConfig().getBoolean(w+".spawn.Egg"))
+						checker(w,cse);
+					break;
+				case LIGHTNING:
+					if(this.inst.getConfig().getBoolean(w+".spawn.Lightning"))
+						checker(w,cse);
+					break;
+				case NATURAL:
+					if(this.inst.getConfig().getBoolean(w+".spawn.Natural"))
+						checker(w,cse);
+					break;
+				case SPAWNER:
+					if(this.inst.getConfig().getBoolean(w+".spawn.Spawner"))
+						checker(w,cse);
+					break;
+				}
+				w=null;
+			}else
+				defaultWorld(cse);
+		}else
+			defaultWorld(cse);
 	}
 
-	//checks if the mob should be stopped or not 
-	public void checker() {
-
-		//checks if the spawn is naturally caused
-		if(event.getSpawnReason() == SpawnReason.NATURAL){
-
-			//checks if there has been an exception while creating, writing or reading the properties file
-			if(AntiMobSpawnVariables.isUseDefault()){
-				defaultSpawn();
-				return;
-			}else 
-
-				//checks if the world the event is on is in the file or if the user has set just to use defaults
-				if(!AntiMobSpawnVariables.getAll().containsKey(event.getLocation().getWorld().getName()) || !AntiMobSpawnVariables.isMulti()) {
-					defaultFileSpawn();
-					return;
-				}else 
-
-					//checks that the world the event is on is in the file, just to be sure
-					if(AntiMobSpawnVariables.getAll().containsKey(event.getLocation().getWorld().getName())){
-						worldSpawn();
-						return;
-					}
+	private void defaultWorld(CreatureSpawnEvent cse){
+		String w = "Default";
+		switch(cse.getSpawnReason()){
+		case BED:
+			if(this.inst.getConfig().getBoolean(w+".spawn.Bed"))
+				checker(w,cse);
+			break;
+		case CUSTOM:
+			if(this.inst.getConfig().getBoolean(w+".spawn.Custom"))
+				checker(w,cse);
+			break;
+		case EGG:
+			if(this.inst.getConfig().getBoolean(w+".spawn.Egg"))
+				checker(w,cse);
+			break;
+		case LIGHTNING:
+			if(this.inst.getConfig().getBoolean(w+".spawn.Lightning"))
+				checker(w,cse);
+			break;
+		case NATURAL:
+			if(this.inst.getConfig().getBoolean(w+".spawn.Natural"))
+				checker(w,cse);
+			break;
+		case SPAWNER:
+			if(this.inst.getConfig().getBoolean(w+".spawn.Spawner"))
+				checker(w,cse);
+			break;
+		}
+		w=null;
+		return;
+	}
+	
+	private void checker(String w,CreatureSpawnEvent cse){
+		if(!this.inst.getConfig().getBoolean(w+".all blocks")){
+			if(blockChecker(w,cse)){
+				creatureChecker(w, cse);
+			}
+		}else{
+			creatureChecker(w, cse);
 		}
 	}
 
-	//used if there was a problem with the file
-	private void defaultSpawn() {
+	private boolean blockChecker(String w,CreatureSpawnEvent cse){
+		@SuppressWarnings("unchecked")
+		Iterator<String> i = this.inst.getConfig().getList(w+".blocks").iterator();
+		while(i.hasNext()){
+			if(cse.getLocation().getBlock().getRelative(0,-1,0).getTypeId()==Integer.parseInt(i.next()))
+				return true;
+		}
+		i=null;
+		return false;
+	}
 
-		//switch for determining whether the creature is to be stop or not
-		switch(event.getCreatureType()){
-
+	private void creatureChecker(String w,CreatureSpawnEvent cse){
+		switch(cse.getCreatureType()){
+		case BLAZE:
+			if(this.inst.getConfig().getBoolean(w+".creature.blaze"))
+				cse.setCancelled(true);
+			break;
+		case CAVE_SPIDER:
+			if(this.inst.getConfig().getBoolean(w+".creature.cave spider"))
+				cse.setCancelled(true);
+			break;
 		case CHICKEN:
-			if(!AntiMobSpawnVariables.getChicken().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.chicken"))
+				cse.setCancelled(true);
+			break;
 		case COW:
-			if(!AntiMobSpawnVariables.getCow().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.cow"))
+				cse.setCancelled(true);
+			break;
 		case CREEPER:
-			if(!AntiMobSpawnVariables.getCreeper().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.creeper"))
+				cse.setCancelled(true);
+			break;
+		case ENDER_DRAGON:
+			if(this.inst.getConfig().getBoolean(w+".creature.ender dragon"))
+				cse.setCancelled(true);
+			break;
+		case ENDERMAN:
+			if(this.inst.getConfig().getBoolean(w+".creature.enderman"))
+				cse.setCancelled(true);
+			break;
 		case GHAST:
-			if(!AntiMobSpawnVariables.getGhast().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.ghast"))
+				cse.setCancelled(true);
+			break;
 		case GIANT:
-			if(!AntiMobSpawnVariables.getGiant().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.giant"))
+				cse.setCancelled(true);
+			break;
 		case MONSTER:
-			if(!AntiMobSpawnVariables.getMonster().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.monster"))
+				cse.setCancelled(true);
+			break;
+		case MUSHROOM_COW:
+			if(this.inst.getConfig().getBoolean(w+".creature.mushroom cow"))
+				cse.setCancelled(true);
+			break;
 		case PIG:
-			if(!AntiMobSpawnVariables.getPig().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.pig"))
+				cse.setCancelled(true);
+			break;
 		case PIG_ZOMBIE:
-			if(!AntiMobSpawnVariables.getPig_zombie().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.pig zombie"))
+				cse.setCancelled(true);
+			break;
 		case SHEEP:
-			if(!AntiMobSpawnVariables.getSheep().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.sheep"))
+				cse.setCancelled(true);
+			break;
+		case SILVERFISH:
+			if(this.inst.getConfig().getBoolean(w+".creature.silverfish"))
+				cse.setCancelled(true);
+			break;
 		case SKELETON:
-			if(!AntiMobSpawnVariables.getSkeleton().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.skeleton"))
+				cse.setCancelled(true);
+			break;
 		case SLIME:
-			if(!AntiMobSpawnVariables.getSlime().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.slime"))
+				cse.setCancelled(true);
+			break;
 		case SPIDER:
-			if(!AntiMobSpawnVariables.getSpider().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.spider"))
+				cse.setCancelled(true);
+			break;
 		case SQUID:
-			if(!AntiMobSpawnVariables.getSquid().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.squid"))
+				cse.setCancelled(true);
+			break;
+		case VILLAGER:
+			if(this.inst.getConfig().getBoolean(w+".creature.villager"))
+				cse.setCancelled(true);
+			break;
 		case WOLF:
-			if(!AntiMobSpawnVariables.getWolf().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
-
+			if(this.inst.getConfig().getBoolean(w+".creature.wolf"))
+				cse.setCancelled(true);
+			break;
 		case ZOMBIE:
-			if(!AntiMobSpawnVariables.getZombie().get(defaultValue)){
-				return;
-			}else{
-				break;
-			}
+			if(this.inst.getConfig().getBoolean(w+".creature.zombie"))
+				cse.setCancelled(true);
+			break;
 		}
-
-
-		//cancels the event if all is set to true
-		if(AntiMobSpawnVariables.getAll().get(defaultValue)){
-			event.setCancelled(true);
-			return;
-		}
-
-		//checks if the mob is spawning on a block that is not to be spawned on
-		for (Integer n : AntiMobSpawnVariables.getBlocks().get(defaultValue)) {
-			if(event.getLocation().getBlock().getRelative(BlockFace.DOWN).getTypeId() == n){
-				event.setCancelled(true);
-			}
-		}
-	}
-
-	//used if the world the event is on is not is the file or multi is set to false
-	private void defaultFileSpawn(){
-
-		//switch for determining whether the creature is to be stop or not
-		switch(event.getCreatureType()){
-
-		case CHICKEN:
-			if(!AntiMobSpawnVariables.getChicken().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case COW:
-			if(!AntiMobSpawnVariables.getCow().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case CREEPER:
-			if(!AntiMobSpawnVariables.getCreeper().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case GHAST:
-			if(!AntiMobSpawnVariables.getGhast().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case GIANT:
-			if(!AntiMobSpawnVariables.getGiant().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case MONSTER:
-			if(!AntiMobSpawnVariables.getMonster().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case PIG:
-			if(!AntiMobSpawnVariables.getPig().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case PIG_ZOMBIE:
-			if(!AntiMobSpawnVariables.getPig_zombie().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case SHEEP:
-			if(!AntiMobSpawnVariables.getSheep().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case SKELETON:
-			if(!AntiMobSpawnVariables.getSkeleton().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case SLIME:
-			if(!AntiMobSpawnVariables.getSlime().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case SPIDER:
-			if(!AntiMobSpawnVariables.getSpider().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case SQUID:
-			if(!AntiMobSpawnVariables.getSquid().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case WOLF:
-			if(!AntiMobSpawnVariables.getWolf().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-
-		case ZOMBIE:
-			if(!AntiMobSpawnVariables.getZombie().get(defaultFileValue)){
-				return;
-			}else{
-				break;
-			}
-		}
-
-		//cancels the event if all is set to true
-		if(AntiMobSpawnVariables.getAll().get(defaultFileValue)){
-			event.setCancelled(true);
-			return;
-		}
-
-		//checks if the mob is spawning on a block that is not to be spawned on
-		for (Integer n : AntiMobSpawnVariables.getBlocks().get(defaultFileValue)) {
-			if(event.getLocation().getBlock().getRelative(BlockFace.DOWN).getTypeId() == n){
-				event.setCancelled(true);
-			}
-		}
-	}
-
-	//used if the world the event is on is in the file
-	private void worldSpawn() {
-
-		//switch for determining whether the creature is to be stop or not
-		switch(event.getCreatureType()){
-
-		case CHICKEN:
-			if(!AntiMobSpawnVariables.getChicken().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case COW:
-			if(!AntiMobSpawnVariables.getCow().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case CREEPER:
-			if(!AntiMobSpawnVariables.getCreeper().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case GHAST:
-			if(!AntiMobSpawnVariables.getGhast().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case GIANT:
-			if(!AntiMobSpawnVariables.getGiant().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case MONSTER:
-			if(!AntiMobSpawnVariables.getMonster().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case PIG:
-			if(!AntiMobSpawnVariables.getPig().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case PIG_ZOMBIE:
-			if(!AntiMobSpawnVariables.getPig_zombie().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case SHEEP:
-			if(!AntiMobSpawnVariables.getSheep().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case SKELETON:
-			if(!AntiMobSpawnVariables.getSkeleton().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case SLIME:
-			if(!AntiMobSpawnVariables.getSlime().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case SPIDER:
-			if(!AntiMobSpawnVariables.getSpider().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case SQUID:
-			if(!AntiMobSpawnVariables.getSquid().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case WOLF:
-			if(!AntiMobSpawnVariables.getWolf().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-
-		case ZOMBIE:
-			if(!AntiMobSpawnVariables.getZombie().get(event.getLocation().getWorld().getName())){
-				return;
-			}else{
-				break;
-			}
-		}
-
-		//cancels the event if all is set to true
-		if(AntiMobSpawnVariables.getAll().get(event.getLocation().getWorld().getName())){
-			event.setCancelled(true);
-			return;
-		}
-
-		//checks if the mob is spawning on a block that is not to be spawned on
-		for (Integer n : AntiMobSpawnVariables.getBlocks().get(event.getLocation().getWorld().getName())) {
-			if(event.getLocation().getBlock().getRelative(BlockFace.DOWN).getTypeId() == n){
-				event.setCancelled(true);
-			}
-		}
+		
+		return;
 	}
 }

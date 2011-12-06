@@ -1,5 +1,9 @@
 name: AntiMobSpawn
-version: 2.0
+version: 3.0
 main: uk.samlex.antimobspawn.AntiMobSpawn
 author: Sam_lex
-description: Allows the user to select a number of options to do with stopping creatures spawning. The user can choose which creatures not to spawn and which block types they can't spawn on. All options can be set per world as well!
+description: A highly configurable creatrue spawn blocker
+commands:
+   ams:
+     description: Reloads the configuration values from disk
+     aliases: reloadams
