@@ -69,7 +69,6 @@ public class AntiMobSpawnEntityListener extends EntityListener{
 						checker(w,cse);
 					break;
 				}
-				w=null;
 			}else
 				defaultWorld(cse);
 		}else
@@ -104,7 +103,6 @@ public class AntiMobSpawnEntityListener extends EntityListener{
 				checker(w,cse);
 			break;
 		}
-		w=null;
 		return;
 	}
 	
@@ -125,7 +123,6 @@ public class AntiMobSpawnEntityListener extends EntityListener{
 			if(cse.getLocation().getBlock().getRelative(0,-1,0).getTypeId()==Integer.parseInt(i.next()))
 				return true;
 		}
-		i=null;
 		return false;
 	}
 

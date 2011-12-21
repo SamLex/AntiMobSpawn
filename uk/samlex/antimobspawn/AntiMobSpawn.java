@@ -56,8 +56,6 @@ public class AntiMobSpawn extends JavaPlugin{
 	public void onDisable(){
 		this.saveConfig();
 		this.print("Disabled. Goodbye");
-		amsel = null;
-		amsc = null;
 	}
 
 	/*
@@ -138,10 +136,7 @@ public class AntiMobSpawn extends JavaPlugin{
 				this.getConfig().set(w+".creature.wolf", false);
 			if(!this.getConfig().contains(w+".creature.zombie"))
 				this.getConfig().set(w+".creature.zombie", true);
-			w=null;
-			block=null;
 		}
-		iter=null;
 		this.saveConfig();
 		return;
 	}
