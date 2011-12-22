@@ -1,5 +1,9 @@
 multi: true
 Default: 
+   enabled: true
+   height limit: 128 
+   time start: 0 
+   time stop: 24000 
    all blocks: false
    blocks: 
     - '18'
@@ -21,6 +25,7 @@ Default:
       enderman: true
       ghast: true
       giant: true
+      magma cube: true
       monster: true
       mushroom cow: false
       pig: false
@@ -29,6 +34,7 @@ Default:
       silverfish: false
       skeleton: true
       slime: true
+      snowman: false
       spider: true
       squid: false
       villager: false

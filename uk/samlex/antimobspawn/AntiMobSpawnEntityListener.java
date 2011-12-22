@@ -41,33 +41,40 @@ public class AntiMobSpawnEntityListener extends EntityListener{
 	@Override
 	public void onCreatureSpawn(CreatureSpawnEvent cse){
 		if(this.inst.getConfig().getBoolean("multi")){
-			if(!this.inst.getConfig().contains(cse.getLocation().getWorld().getName())){
+			if(this.inst.getConfig().contains(cse.getLocation().getWorld().getName())){
 				String w = cse.getLocation().getWorld().getName();
-				switch(cse.getSpawnReason()){
-				case BED:
-					if(this.inst.getConfig().getBoolean(w+".spawn.Bed"))
-						checker(w,cse);
-					break;
-				case CUSTOM:
-					if(this.inst.getConfig().getBoolean(w+".spawn.Custom"))
-						checker(w,cse);
-					break;
-				case EGG:
-					if(this.inst.getConfig().getBoolean(w+".spawn.Egg"))
-						checker(w,cse);
-					break;
-				case LIGHTNING:
-					if(this.inst.getConfig().getBoolean(w+".spawn.Lightning"))
-						checker(w,cse);
-					break;
-				case NATURAL:
-					if(this.inst.getConfig().getBoolean(w+".spawn.Natural"))
-						checker(w,cse);
-					break;
-				case SPAWNER:
-					if(this.inst.getConfig().getBoolean(w+".spawn.Spawner"))
-						checker(w,cse);
-					break;
+				if(this.inst.getConfig().getBoolean(w+".enabled")){
+					if(cse.getLocation().getY()<=this.inst.getConfig().getDouble(w+".height limit")){
+						if(cse.getLocation().getWorld().getTime()>=this.inst.getConfig().getInt(w+".time start") && 
+								cse.getLocation().getWorld().getTime()<=this.inst.getConfig().getInt(w+".time stop")){
+							switch(cse.getSpawnReason()){
+							case BED:
+								if(this.inst.getConfig().getBoolean(w+".spawn.Bed"))
+									checker(w,cse);
+								break;
+							case CUSTOM:
+								if(this.inst.getConfig().getBoolean(w+".spawn.Custom"))
+									checker(w,cse);
+								break;
+							case EGG:
+								if(this.inst.getConfig().getBoolean(w+".spawn.Egg"))
+									checker(w,cse);
+								break;
+							case LIGHTNING:
+								if(this.inst.getConfig().getBoolean(w+".spawn.Lightning"))
+									checker(w,cse);
+								break;
+							case NATURAL:
+								if(this.inst.getConfig().getBoolean(w+".spawn.Natural"))
+									checker(w,cse);
+								break;
+							case SPAWNER:
+								if(this.inst.getConfig().getBoolean(w+".spawn.Spawner"))
+									checker(w,cse);
+								break;
+							}
+						}
+					}
 				}
 			}else
 				defaultWorld(cse);
@@ -77,35 +84,42 @@ public class AntiMobSpawnEntityListener extends EntityListener{
 
 	private void defaultWorld(CreatureSpawnEvent cse){
 		String w = "Default";
-		switch(cse.getSpawnReason()){
-		case BED:
-			if(this.inst.getConfig().getBoolean(w+".spawn.Bed"))
-				checker(w,cse);
-			break;
-		case CUSTOM:
-			if(this.inst.getConfig().getBoolean(w+".spawn.Custom"))
-				checker(w,cse);
-			break;
-		case EGG:
-			if(this.inst.getConfig().getBoolean(w+".spawn.Egg"))
-				checker(w,cse);
-			break;
-		case LIGHTNING:
-			if(this.inst.getConfig().getBoolean(w+".spawn.Lightning"))
-				checker(w,cse);
-			break;
-		case NATURAL:
-			if(this.inst.getConfig().getBoolean(w+".spawn.Natural"))
-				checker(w,cse);
-			break;
-		case SPAWNER:
-			if(this.inst.getConfig().getBoolean(w+".spawn.Spawner"))
-				checker(w,cse);
-			break;
+		if(this.inst.getConfig().getBoolean(w+".enabled")){
+			if(cse.getLocation().getY()<=this.inst.getConfig().getDouble(w+".height limit")){
+				if(cse.getLocation().getWorld().getTime()>=this.inst.getConfig().getInt(w+".time start") && 
+						cse.getLocation().getWorld().getTime()<=this.inst.getConfig().getInt(w+".time stop")){
+					switch(cse.getSpawnReason()){
+					case BED:
+						if(this.inst.getConfig().getBoolean(w+".spawn.Bed"))
+							checker(w,cse);
+						break;
+					case CUSTOM:
+						if(this.inst.getConfig().getBoolean(w+".spawn.Custom"))
+							checker(w,cse);
+						break;
+					case EGG:
+						if(this.inst.getConfig().getBoolean(w+".spawn.Egg"))
+							checker(w,cse);
+						break;
+					case LIGHTNING:
+						if(this.inst.getConfig().getBoolean(w+".spawn.Lightning"))
+							checker(w,cse);
+						break;
+					case NATURAL:
+						if(this.inst.getConfig().getBoolean(w+".spawn.Natural"))
+							checker(w,cse);
+						break;
+					case SPAWNER:
+						if(this.inst.getConfig().getBoolean(w+".spawn.Spawner"))
+							checker(w,cse);
+						break;
+					}
+				}
+			}
 		}
 		return;
 	}
-	
+
 	private void checker(String w,CreatureSpawnEvent cse){
 		if(!this.inst.getConfig().getBoolean(w+".all blocks")){
 			if(blockChecker(w,cse)){
@@ -164,6 +178,10 @@ public class AntiMobSpawnEntityListener extends EntityListener{
 			if(this.inst.getConfig().getBoolean(w+".creature.giant"))
 				cse.setCancelled(true);
 			break;
+		case MAGMA_CUBE:
+			if(this.inst.getConfig().getBoolean(w+".creature.magma cube"))
+				cse.setCancelled(true);
+			break;
 		case MONSTER:
 			if(this.inst.getConfig().getBoolean(w+".creature.monster"))
 				cse.setCancelled(true);
@@ -196,6 +214,10 @@ public class AntiMobSpawnEntityListener extends EntityListener{
 			if(this.inst.getConfig().getBoolean(w+".creature.slime"))
 				cse.setCancelled(true);
 			break;
+		case SNOWMAN:
+			if(this.inst.getConfig().getBoolean(w+".creature.snowman"))
+				cse.setCancelled(true);
+			break;
 		case SPIDER:
 			if(this.inst.getConfig().getBoolean(w+".creature.spider"))
 				cse.setCancelled(true);
@@ -217,7 +239,7 @@ public class AntiMobSpawnEntityListener extends EntityListener{
 				cse.setCancelled(true);
 			break;
 		}
-		
+
 		return;
 	}
 }

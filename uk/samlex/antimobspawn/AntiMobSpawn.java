@@ -76,6 +76,14 @@ public class AntiMobSpawn extends JavaPlugin{
 		while(iter.hasNext()){
 			String w = iter.next().getName();
 			String[] block = {"18","46"};
+			if(!this.getConfig().contains(w+".enabled"))
+				this.getConfig().set(w+".enabled", true);
+			if(!this.getConfig().contains(w+".height limit"))
+				this.getConfig().set(w+".height limit", this.getServer().getWorld(w).getSeaLevel());
+			if(!this.getConfig().contains(w+".time start"))
+				this.getConfig().set(w+".time start", 0);
+			if(!this.getConfig().contains(w+".time stop"))
+				this.getConfig().set(w+".time stop", 24000);
 			if(!this.getConfig().contains(w+".all blocks"))
 				this.getConfig().set(w+".all blocks", false);
 			if(!this.getConfig().contains(w+".blocks"))
@@ -110,6 +118,8 @@ public class AntiMobSpawn extends JavaPlugin{
 				this.getConfig().set(w+".creature.ghast", true);
 			if(!this.getConfig().contains(w+".creature.giant"))
 				this.getConfig().set(w+".creature.giant", true);
+			if(!this.getConfig().contains(w+".creature.magma cube"))
+				this.getConfig().set(w+".creature.magma cube", true);
 			if(!this.getConfig().contains(w+".creature.monster"))
 				this.getConfig().set(w+".creature.monster", true);
 			if(!this.getConfig().contains(w+".creature.muchroom cow"))
@@ -126,6 +136,8 @@ public class AntiMobSpawn extends JavaPlugin{
 				this.getConfig().set(w+".creature.skeleton", true);
 			if(!this.getConfig().contains(w+".creature.slime"))
 				this.getConfig().set(w+".creature.slime", true);
+			if(!this.getConfig().contains(w+".creature.snowman"))
+				this.getConfig().set(w+".creature.snowman", false);
 			if(!this.getConfig().contains(w+".creature.spider"))
 				this.getConfig().set(w+".creature.spider", true);
 			if(!this.getConfig().contains(w+".creature.squid"))
