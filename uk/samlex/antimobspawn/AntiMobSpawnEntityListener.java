@@ -44,7 +44,7 @@ public class AntiMobSpawnEntityListener extends EntityListener{
 			if(this.inst.getConfig().contains(cse.getLocation().getWorld().getName())){
 				String w = cse.getLocation().getWorld().getName();
 				if(this.inst.getConfig().getBoolean(w+".enabled")){
-					if(cse.getLocation().getY()<=this.inst.getConfig().getDouble(w+".height limit")){
+					if(cse.getLocation().getY()>=this.inst.getConfig().getDouble(w+".height limit")){
 						if(cse.getLocation().getWorld().getTime()>=this.inst.getConfig().getInt(w+".time start") && 
 								cse.getLocation().getWorld().getTime()<=this.inst.getConfig().getInt(w+".time stop")){
 							switch(cse.getSpawnReason()){
