@@ -1,0 +1,57 @@
+multi: false
+Default: 
+   enabled: true
+   height limit: 62
+   height limit type: above 
+   time start: 0 
+   time end: 24000 
+   all blocks: false
+   blocks: 
+    - '18'
+    - '46'
+   spawn: 
+     Breeding: false
+     Build Iron Golem: false
+     Build Snowman: false
+     Build Wither: false
+     Chunk Generation: true
+     Custom: false
+     Egg: true
+     Jockey: true
+     Lightning: true
+     Natural: true
+     Slime Split: true
+     Spawner: true
+     Spawn Egg: true
+     Village Defense: false
+     Village Invasion: true
+   creature: 
+      bat: true
+      blaze: true
+      cave spider: true
+      chicken: false
+      cow: false
+      creeper: true
+      ender dragon: true
+      enderman: true
+      ghast: true
+      giant: true
+      iron golem: false
+      magma cube: true
+      mushroom cow: false
+      ocelot: false
+      pig: false
+      pig zombie: true
+      sheep: false
+      silverfish: false
+      skeleton: true
+      slime: true
+      snowman: false
+      spider: true
+      squid: false
+      villager: false
+      witch: false
+      wither: true
+      wolf: false
+      zombie: true
+      zombie villager: true
