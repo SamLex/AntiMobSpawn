@@ -59,6 +59,7 @@ public class AMSConfig {
         multi = config.getBoolean("multi");
         worlds = new HashMap<>();
 
+        setupFile();
         internalConfig();
     }
 
