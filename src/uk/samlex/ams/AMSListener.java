@@ -47,6 +47,10 @@ public class AMSListener implements Listener {
 
         AMSWorldConfig config = plugin.getAMSConfig().getWorlds().get(world);
 
+        //Null check for if no worlds are enabled
+        if(config==null)
+            return;
+        
         // Checks if the spawn is in any of the zones in the database for the world the spawn is in
         if (config.isZone()) {
             List<AMSZone> zoneList = plugin.getDatabase().find(AMSZone.class).where().ieq("world_name", e.getLocation().getWorld().getName()).findList();
