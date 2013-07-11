@@ -69,7 +69,6 @@ public class AMSConfig {
             AMSWorldConfig default_world = new AMSWorldConfig("Default");
 
             default_world.setZone(false);
-            default_world.setZone_type("safe");
             default_world.setHeight_limit(config.getInt("Default.height limit"));
             default_world.setHeight_limit_type(config.getString("Default.height limit type"));
             default_world.setTime_start(config.getInt("Default.time start"));
@@ -202,110 +201,59 @@ public class AMSConfig {
                 String world = iter.next().getName();
                 String[] block = { "18", "46" };
 
-                if (!config.contains(world + ".enabled"))
-                    config.set(world + ".enabled", true);
-                if (!config.contains(world + ".zone"))
-                    config.set(world + ".zone", true);
-                if (!config.contains(world + ".zone type"))
-                    config.set(world + ".zone type", "safe");
-                if (!config.contains(world + ".height limit"))
-                    config.set(world + ".height limit", "62");
-                if (!config.contains(world + ".height limit type"))
-                    config.set(world + ".height limit type", "above");
-                if (!config.contains(world + ".time start"))
-                    config.set(world + ".time start", "0");
-                if (!config.contains(world + ".time end"))
-                    config.set(world + ".time end", "24000");
-                if (!config.contains(world + ".all blocks"))
-                    config.set(world + ".all blocks", false);
-                if (!config.contains(world + ".blocks"))
-                    config.set(world + ".blocks", Arrays.asList(block));
+                addToConfig(config, world, "enabled", true);
+                addToConfig(config, world, "zone", true);
+                addToConfig(config, world, "zone type", "safe");
+                addToConfig(config, world, "height limit", "62");
+                addToConfig(config, world, "height limit type", "above");
+                addToConfig(config, world, "time start", "0");
+                addToConfig(config, world, "time end", "24000");
+                addToConfig(config, world, "all blocks", false);
+                addToConfig(config, world, "blocks", Arrays.asList(block));
 
-                if (!config.contains(world + ".spawn.Breeding"))
-                    config.set(world + ".spawn.Breeding", false);
-                if (!config.contains(world + ".spawn.Build Iron Golem"))
-                    config.set(world + ".spawn.Build Iron Golem", false);
-                if (!config.contains(world + ".spawn.Build Wither"))
-                    config.set(world + ".spawn.Build Wither", false);
-                if (!config.contains(world + ".spawn.Chunk Generation"))
-                    config.set(world + ".spawn.Chunk Generation", true);
-                if (!config.contains(world + ".spawn.Custom"))
-                    config.set(world + ".spawn.Custom", false);
-                if (!config.contains(world + ".spawn.Egg"))
-                    config.set(world + ".spawn.Egg", true);
-                if (!config.contains(world + ".spawn.Jockey"))
-                    config.set(world + ".spawn.Jockey", true);
-                if (!config.contains(world + ".spawn.Lightning"))
-                    config.set(world + ".spawn.Lightning", true);
-                if (!config.contains(world + ".spawn.Natural"))
-                    config.set(world + ".spawn.Natural", true);
-                if (!config.contains(world + ".spawn.Slime Split"))
-                    config.set(world + ".spawn.Slime Split", true);
-                if (!config.contains(world + ".spawn.Spawner"))
-                    config.set(world + ".spawn.Spawner", true);
-                if (!config.contains(world + ".spawn.Spawn Egg"))
-                    config.set(world + ".spawn.Spawn Egg", true);
-                if (!config.contains(world + ".spawn.Village Defense"))
-                    config.set(world + ".spawn.Village Defense", false);
-                if (!config.contains(world + ".spawn.Village Invasion"))
-                    config.set(world + ".spawn.Village Invasion", true);
+                addToConfig(config, world, "spawn.Breeding", false);
+                addToConfig(config, world, "spawn.Build Iron Golem", false);
+                addToConfig(config, world, "spawn.Build Wither", false);
+                addToConfig(config, world, "spawn.Chunk Generation", true);
+                addToConfig(config, world, "spawn.Custom", false);
+                addToConfig(config, world, "spawn.Egg", true);
+                addToConfig(config, world, "spawn.Jockey", true);
+                addToConfig(config, world, "spawn.Lightning", true);
+                addToConfig(config, world, "spawn.Natural", true);
+                addToConfig(config, world, "spawn.Slime Split", true);
+                addToConfig(config, world, "spawn.Spawner", true);
+                addToConfig(config, world, "spawn.Spawn Egg", true);
+                addToConfig(config, world, "spawn.Village Defense", false);
+                addToConfig(config, world, "spawn.Village Invasion", true);
 
-                if (!config.contains(world + ".creature.bat"))
-                    config.set(world + ".creature.bat", true);
-                if (!config.contains(world + ".creature.blaze"))
-                    config.set(world + ".creature.blaze", true);
-                if (!config.contains(world + ".creature.cave spider"))
-                    config.set(world + ".creature.cave spider", true);
-                if (!config.contains(world + ".creature.chicken"))
-                    config.set(world + ".creature.chicken", false);
-                if (!config.contains(world + ".creature.creeper"))
-                    config.set(world + ".creature.creeper", true);
-                if (!config.contains(world + ".creature.ender dragon"))
-                    config.set(world + ".creature.ender dragon", true);
-                if (!config.contains(world + ".creature.enderman"))
-                    config.set(world + ".creature.enderman", true);
-                if (!config.contains(world + ".creature.ghast"))
-                    config.set(world + ".creature.ghast", true);
-                if (!config.contains(world + ".creature.giant"))
-                    config.set(world + ".creature.giant", true);
-                if (!config.contains(world + ".creature.iron golem"))
-                    config.set(world + ".creature.iron golem", false);
-                if (!config.contains(world + ".creature.magma cube"))
-                    config.set(world + ".creature.magma cube", true);
-                if (!config.contains(world + ".creature.mushroom cow"))
-                    config.set(world + ".creature.mushroom cow", false);
-                if (!config.contains(world + ".creature.ocelot"))
-                    config.set(world + ".creature.ocelot", false);
-                if (!config.contains(world + ".creature.pig"))
-                    config.set(world + ".creature.pig", false);
-                if (!config.contains(world + ".creature.pig zombie"))
-                    config.set(world + ".creature.pig zombie", true);
-                if (!config.contains(world + ".creature.sheep"))
-                    config.set(world + ".creature.sheep", false);
-                if (!config.contains(world + ".creature.silverfish"))
-                    config.set(world + ".creature.silverfish", false);
-                if (!config.contains(world + ".creature.skeleton"))
-                    config.set(world + ".creature.skeleton", true);
-                if (!config.contains(world + ".creature.slime"))
-                    config.set(world + ".creature.slime", true);
-                if (!config.contains(world + ".creature.snowman"))
-                    config.set(world + ".creature.snowman", false);
-                if (!config.contains(world + ".creature.spider"))
-                    config.set(world + ".creature.spider", true);
-                if (!config.contains(world + ".creature.squid"))
-                    config.set(world + ".creature.squid", false);
-                if (!config.contains(world + ".creature.villager"))
-                    config.set(world + ".creature.villager", false);
-                if (!config.contains(world + ".creature.witch"))
-                    config.set(world + ".creature.witch", false);
-                if (!config.contains(world + ".creature.wither"))
-                    config.set(world + ".creature.wither", true);
-                if (!config.contains(world + ".creature.wolf"))
-                    config.set(world + ".creature.wolf", false);
-                if (!config.contains(world + ".creature.zombie"))
-                    config.set(world + ".creature.zombie", true);
-                if (!config.contains(world + ".creature.zombie villager"))
-                    config.set(world + ".creature.zombie villager", true);
+                addToConfig(config, world, "creature.bat", true);
+                addToConfig(config, world, "creature.blaze", true);
+                addToConfig(config, world, "creature.cave spider", true);
+                addToConfig(config, world, "creature.chicken", false);
+                addToConfig(config, world, "creature.creeper", true);
+                addToConfig(config, world, "creature.ender dragon", true);
+                addToConfig(config, world, "creature.enderman", true);
+                addToConfig(config, world, "creature.ghast", true);
+                addToConfig(config, world, "creature.giant", true);
+                addToConfig(config, world, "creature.iron golem", false);
+                addToConfig(config, world, "creature.magma cube", true);
+                addToConfig(config, world, "creature.mushroom cow", false);
+                addToConfig(config, world, "creature.ocelot", false);
+                addToConfig(config, world, "creature.pig", false);
+                addToConfig(config, world, "creature.pig zombie", true);
+                addToConfig(config, world, "creature.sheep", false);
+                addToConfig(config, world, "creature.silverfish", false);
+                addToConfig(config, world, "creature.skeleton", true);
+                addToConfig(config, world, "creature.slime", true);
+                addToConfig(config, world, "creature.snowman", false);
+                addToConfig(config, world, "creature.spider", true);
+                addToConfig(config, world, "creature.squid", false);
+                addToConfig(config, world, "creature.villager", false);
+                addToConfig(config, world, "creature.witch", false);
+                addToConfig(config, world, "creature.wither", true);
+                addToConfig(config, world, "creature.wolf", false);
+                addToConfig(config, world, "creature.zombie", true);
+                addToConfig(config, world, "creature.zombie villager", true);
             }
         }
         plugin.saveConfig();
@@ -313,5 +261,10 @@ public class AMSConfig {
 
     public HashMap<String, AMSWorldConfig> getWorlds() {
         return worlds;
+    }
+
+    private void addToConfig(FileConfiguration config, String root, String node, Object value) {
+        if (!config.contains(root + '.' + node))
+            config.set(root + '.' + node, value);
     }
 }
