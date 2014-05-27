@@ -16,7 +16,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package uk.samlex.ams;
+package uk.samlex.ams.old;
 
 import java.util.List;
 
