@@ -1,11 +1,7 @@
 name: AntiMobSpawn
-version: 4.0
+version: 5.0
 main: uk.samlex.ams.AntiMobSpawn
 author: Sam_lex
-description: A highly configurable plugin which gives you ultimate control over the creatures that spawn in your worlds.
+description: TODO
 database: true
-commands:
-   ams:
-     description: The command to setup, show and remove AMS Zones, as well as to reload the plugin. Type /ams help for usage.
-     aliases: antimobspawn
-     usage: Type /ams help for usage
+
