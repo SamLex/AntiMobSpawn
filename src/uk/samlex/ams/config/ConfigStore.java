@@ -23,7 +23,7 @@ public class ConfigStore {
         AntiMobSpawn.instance().checkDatabase();
 
         configFile = AntiMobSpawn.instance().getConfig();
-        getConfigBoolean("", "debug", debug);
+        debug = getConfigBoolean("", "debug", debug);
         worldConfigMap = new HashMap<String, WorldConfig>();
 
         for (World world : AntiMobSpawn.instance().getServer().getWorlds()) {
