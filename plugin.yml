@@ -5,61 +5,61 @@ author: Sam_lex
 description: TODO
 database: true
 commands:
-	ams-create:
-		description: Creates a new zone
-		usage: TODO
-		permission: ams.create
-		permission-message: You don't have permission to create a new zone
-	ams-list:
-		description: Lists current zones
-		usage: TODO
-		permission: ams.list
-		permission-message: You don't have permission to list current zones
-	ams-reload:
-		description: Reloads the config file
-		usage: TODO
-		permission: ams.reload
-		permission-message: You don't have permission to reload the config file
-	ams-remove:
-		description: Removes an existing zone
-		usage: TODO
-		permission: ams.remove
-		permission-message: You don't have permission to remove an existing zone
-	ams-set:
-		description: Set the coordinates of an existing zone
-		usage: TODO
-		permission: ams.set
-		permission-message: You don't have permission to change an existing zone
-	ams-preview:
-		description: Visibly see an existing zone using blocks
-		usage: TODO
-		permission: ams.preview
-		permission-message: You don't have permission to preview an existing zone
+    ams-create:
+        description: Creates a new zone
+        usage: TODO
+        permission: ams.create
+        permission-message: You don't have permission to create a new zone
+    ams-list:
+        description: Lists current zones
+        usage: TODO
+        permission: ams.list
+        permission-message: You don't have permission to list current zones
+    ams-reload:
+        description: Reloads the config file
+        usage: TODO
+        permission: ams.reload
+        permission-message: You don't have permission to reload the config file
+    ams-remove:
+        description: Removes an existing zone
+        usage: TODO
+        permission: ams.remove
+        permission-message: You don't have permission to remove an existing zone
+    ams-set:
+        description: Set the coordinates of an existing zone
+        usage: TODO
+        permission: ams.set
+        permission-message: You don't have permission to change an existing zone
+    ams-preview:
+        description: Visibly see an existing zone using blocks
+        usage: TODO
+        permission: ams.preview
+        permission-message: You don't have permission to preview an existing zone
 permissions:
-	ams.*:
-		description: Gives access to all AntiMobSpawn commands
-		children:
-			ams.create: true
-			ams.list: true
-			ams.reload: true
-			ams.remove: true
-			ams.set: true
-			ams.preview: true
-	ams.create:
-		description: Allows you to create a new zone
-		default: op
-	ams.list:
-		description: Allows you to list current zones
-		default: op
-	ams.reload:
-		description: Allows you to reload the config file
-		default: op
-	ams.remove:
-		description: Allows you to remove an existing zone
-		default: op
-	ams.set
-		description: Allows you to set coordinates for an existing zone
-		default: op
-	ams.preview:
-		description: Allows you to visibly see an existing zone
-		default: op
+    ams.*:
+        description: Gives access to all AntiMobSpawn commands
+        children:
+            ams.create: true
+            ams.list: true
+            ams.reload: true
+            ams.remove: true
+            ams.set: true
+            ams.preview: true
+    ams.create:
+        description: Allows you to create a new zone
+        default: op
+    ams.list:
+        description: Allows you to list current zones
+        default: op
+    ams.reload:
+        description: Allows you to reload the config file
+        default: op
+    ams.remove:
+        description: Allows you to remove an existing zone
+        default: op
+    ams.set
+        description: Allows you to set coordinates for an existing zone
+        default: op
+    ams.preview:
+        description: Allows you to visibly see an existing zone
+        default: op
