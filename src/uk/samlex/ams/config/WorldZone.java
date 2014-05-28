@@ -94,4 +94,52 @@ public class WorldZone {
     public BoundingBox getBoundingBox() {
         return new BoundingBox(getPointOneVector(), getPointTwoVector());
     }
+
+    public int getPointOneVectorX() {
+        return pointOneVectorX;
+    }
+
+    public void setPointOneVectorX(int pointOneVectorX) {
+        this.pointOneVectorX = pointOneVectorX;
+    }
+
+    public int getPointOneVectorY() {
+        return pointOneVectorY;
+    }
+
+    public void setPointOneVectorY(int pointOneVectorY) {
+        this.pointOneVectorY = pointOneVectorY;
+    }
+
+    public int getPointOneVectorZ() {
+        return pointOneVectorZ;
+    }
+
+    public void setPointOneVectorZ(int pointOneVectorZ) {
+        this.pointOneVectorZ = pointOneVectorZ;
+    }
+
+    public int getPointTwoVectorX() {
+        return pointTwoVectorX;
+    }
+
+    public void setPointTwoVectorX(int pointTwoVectorX) {
+        this.pointTwoVectorX = pointTwoVectorX;
+    }
+
+    public int getPointTwoVectorY() {
+        return pointTwoVectorY;
+    }
+
+    public void setPointTwoVectorY(int pointTwoVectorY) {
+        this.pointTwoVectorY = pointTwoVectorY;
+    }
+
+    public int getPointTwoVectorZ() {
+        return pointTwoVectorZ;
+    }
+
+    public void setPointTwoVectorZ(int pointTwoVectorZ) {
+        this.pointTwoVectorZ = pointTwoVectorZ;
+    }
 }
