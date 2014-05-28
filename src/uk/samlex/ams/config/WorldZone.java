@@ -24,6 +24,8 @@ import javax.persistence.Table;
 
 import org.bukkit.util.Vector;
 
+import uk.samlex.ams.util.BoundingBox;
+
 import com.avaje.ebean.validation.NotNull;
 
 @Entity()
@@ -83,5 +85,9 @@ public class WorldZone {
 
     public void setPointTwoVector(Vector pointTwoVector) {
         this.pointTwoVector = pointTwoVector;
+    }
+    
+    public BoundingBox getBoundingBox() {
+        return new BoundingBox(pointOneVector, pointOneVector);
     }
 }
