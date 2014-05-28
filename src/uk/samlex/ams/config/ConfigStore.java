@@ -14,6 +14,7 @@ public class ConfigStore {
 
     private FileConfiguration configFile;
 
+    private boolean debug = false;
     private HashMap<String, WorldConfig> worldConfigMap;
 
     public ConfigStore() {
@@ -22,6 +23,7 @@ public class ConfigStore {
         AntiMobSpawn.instance().checkDatabase();
 
         configFile = AntiMobSpawn.instance().getConfig();
+        getConfigBoolean("", "debug", debug);
         worldConfigMap = new HashMap<String, WorldConfig>();
 
         for (World world : AntiMobSpawn.instance().getServer().getWorlds()) {
@@ -87,7 +89,6 @@ public class ConfigStore {
             }
         } catch (IllegalArgumentException iae) {
             AntiMobSpawn.instance().getLogger().severe("Unknown string detected in " + completePath + ". Please check your config file.");
-            iae.printStackTrace();
             return null;
         }
     }
@@ -108,5 +109,9 @@ public class ConfigStore {
         } else {
             return false;
         }
+    }
+
+    public boolean isDebug() {
+        return debug;
     }
 }
