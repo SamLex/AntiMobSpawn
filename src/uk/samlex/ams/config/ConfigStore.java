@@ -114,4 +114,16 @@ public class ConfigStore {
     public boolean isDebug() {
         return debug;
     }
+
+    public void reloadConfig() {
+        configFile = AntiMobSpawn.instance().getConfig();
+        debug = getConfigBoolean("", "debug", debug);
+        worldConfigMap = new HashMap<String, WorldConfig>();
+
+        for (World world : AntiMobSpawn.instance().getServer().getWorlds()) {
+            worldConfigMap.put(world.getName(), new WorldConfig(world.getName()));
+        }
+
+        AntiMobSpawn.instance().saveConfig();
+    }
 }
