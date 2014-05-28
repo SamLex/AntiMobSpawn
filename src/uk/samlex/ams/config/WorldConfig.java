@@ -8,11 +8,12 @@ import org.bukkit.entity.EntityType;
 import uk.samlex.ams.util.EnumSort;
 import static org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
+@SuppressWarnings("deprecation")
 public class WorldConfig {
 
     private String worldName;
 
-    @SuppressWarnings("deprecation")
+    private static final EntityType excludedEntityType = EntityType.PLAYER;
     private static final SpawnReason excludedSpawnReason = SpawnReason.BED;
 
     private boolean allBlocks = false;
@@ -60,7 +61,7 @@ public class WorldConfig {
 
     private void setupEntityMap(ConfigStore config) {
         for (EntityType type : EnumSort.sortEnumArrayAlphabetically(EntityType.values(), EntityType.class)) {
-            if (type.isAlive()) {
+            if (type.isAlive() && type != excludedEntityType) {
                 entityMap.put(type, config.getConfigBoolean(worldName, "creature" + "." + type.toString().toLowerCase(), false));
             }
         }
