@@ -43,7 +43,7 @@ public class CreateCommand extends GenericCommand {
             AntiMobSpawn.instance().getDatabase().save(zone);
             sender.sendMessage(ChatColor.GREEN + "Created zone " + zoneName + " on " + worldName);
         } else {
-            sender.sendMessage(ChatColor.RED + "A zone under this name already exists on this world");
+            sender.sendMessage(ChatColor.RED + "A zone with this name already exists on this world");
         }
 
         return true;
