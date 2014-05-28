@@ -74,7 +74,7 @@ public class ConfigStore {
         String completePath = world + "." + path;
         try {
             if (!configSet(completePath, def.toString())) {
-                String e = getConfigString(world, path, def.toString());
+                String e = getConfigString(world, path, def.toString()).toUpperCase();
                 if (def instanceof HeightLimitMode) {
                     return HeightLimitMode.valueOf(e);
                 } else if (def instanceof WorldMode) {
@@ -87,6 +87,7 @@ public class ConfigStore {
             }
         } catch (IllegalArgumentException iae) {
             AntiMobSpawn.instance().getLogger().severe("Unknown string detected in " + completePath + ". Please check your config file.");
+            iae.printStackTrace();
             return null;
         }
     }
