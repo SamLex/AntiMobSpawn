@@ -16,6 +16,8 @@ public class WorldConfig {
     private static final SpawnReason excludedSpawnReason = SpawnReason.BED;
 
     private boolean allBlocks = false;
+    private boolean allSpawnReasons = false;
+    private boolean allCreatures = false;
     private HashMap<Material, Boolean> blockMap;
     private HashMap<EntityType, Boolean> entityMap;
     private HashMap<SpawnReason, Boolean> spawnReasonMap;
@@ -34,6 +36,8 @@ public class WorldConfig {
         safeTimeStart = config.getConfigInt(worldName, "safe time start", safeTimeStart);
         safeTimeEnd = config.getConfigInt(worldName, "safe time end", safeTimeEnd);
         allBlocks = config.getConfigBoolean(worldName, "all block types", allBlocks);
+        allSpawnReasons = config.getConfigBoolean(worldName, "all spawn reasons", allSpawnReasons);
+        allCreatures = config.getConfigBoolean(worldName, "all creatures", allCreatures);
         heightLimitMode = (HeightLimitMode) config.getConfigEnum(worldName, "global.height limit mode", heightLimitMode);
         heightLimit = config.getConfigInt(worldName, "global.height limit", heightLimit);
 
@@ -109,5 +113,13 @@ public class WorldConfig {
 
     public String getWorldName() {
         return worldName;
+    }
+
+    public boolean isAllSpawnReasons() {
+        return allSpawnReasons;
+    }
+
+    public boolean isAllCreatures() {
+        return allCreatures;
     }
 }
