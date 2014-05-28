@@ -7,7 +7,7 @@ database: true
 commands:
     ams-create:
         description: Creates a new zone
-        usage: /ams-create <zone name>
+        usage: /ams-create <zone name> [world name]
         permission: ams.create
         permission-message: You don't have permission to create a new zone
     ams-list:
@@ -22,17 +22,17 @@ commands:
         permission-message: You don't have permission to reload the config file
     ams-remove:
         description: Removes an existing zone
-        usage: /ams-remove <zone name>
+        usage: /ams-remove <zone name> [world name]
         permission: ams.remove
         permission-message: You don't have permission to remove an existing zone
     ams-set:
         description: Set the coordinates of an existing zone
-        usage: /ams-set <zone name> one|two [x] [y] [z]
+        usage: /ams-set <zone name> one|two [x] [y] [z] [world name]
         permission: ams.set
         permission-message: You don't have permission to change an existing zone
     ams-preview:
         description: Visibly see an existing zone using blocks
-        usage: /ams-preview <zone name> <preview type> [block] [replace]
+        usage: /ams-preview <zone name> <preview type> [block] [replace] [world name]
         permission: ams.preview
         permission-message: You don't have permission to preview an existing zone
 permissions:
