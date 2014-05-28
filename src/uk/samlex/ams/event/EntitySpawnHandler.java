@@ -86,12 +86,16 @@ public class EntitySpawnHandler implements Listener {
                 break;
         }
 
-        if (!worldConfig.getSpawnReasonMap().containsKey(cse.getSpawnReason()) || !worldConfig.getSpawnReasonMap().get(cse.getSpawnReason())) {
-            return;
+        if (!worldConfig.isAllSpawnReasons()) {
+            if (!worldConfig.getSpawnReasonMap().containsKey(cse.getSpawnReason()) || !worldConfig.getSpawnReasonMap().get(cse.getSpawnReason())) {
+                return;
+            }
         }
 
-        if (!worldConfig.getEntityMap().containsKey(cse.getEntityType()) || !worldConfig.getEntityMap().get(cse.getEntityType())) {
-            return;
+        if (!worldConfig.isAllCreatures()) {
+            if (!worldConfig.getEntityMap().containsKey(cse.getEntityType()) || !worldConfig.getEntityMap().get(cse.getEntityType())) {
+                return;
+            }
         }
 
         if (!worldConfig.isAllBlocks()) {
@@ -103,5 +107,9 @@ public class EntitySpawnHandler implements Listener {
         }
 
         cse.setCancelled(true);
+
+        if (ConfigStore.instance().isDebug()) {
+            AntiMobSpawn.instance().getLogger().info(String.format("Stopped spawn of %s at [%s], with reason %s, on block %s", cse.getEntityType().toString(), location.toVector().toString(), cse.getSpawnReason().toString(), location.subtract(0, 1, 0).getBlock().getType().toString()));
+        }
     }
 }
