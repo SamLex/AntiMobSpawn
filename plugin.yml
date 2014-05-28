@@ -57,7 +57,7 @@ permissions:
     ams.remove:
         description: Allows you to remove an existing zone
         default: op
-    ams.set
+    ams.set:
         description: Allows you to set coordinates for an existing zone
         default: op
     ams.preview:
