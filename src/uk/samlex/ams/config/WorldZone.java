@@ -42,10 +42,10 @@ public class WorldZone {
     private String zoneName;
 
     @NotNull
-    private Vector pointOneVector;
+    private int pointOneVectorX, pointOneVectorY, pointOneVectorZ;
 
     @NotNull
-    private Vector pointTwoVector;
+    private int pointTwoVectorX, pointTwoVectorY, pointTwoVectorZ;
 
     public int getId() {
         return id;
@@ -72,22 +72,26 @@ public class WorldZone {
     }
 
     public Vector getPointOneVector() {
-        return pointOneVector;
+        return new Vector(pointOneVectorX, pointOneVectorY, pointOneVectorZ);
     }
 
     public void setPointOneVector(Vector pointOneVector) {
-        this.pointOneVector = pointOneVector;
+        this.pointOneVectorX = pointOneVector.getBlockX();
+        this.pointOneVectorY = pointOneVector.getBlockY();
+        this.pointOneVectorZ = pointOneVector.getBlockZ();
     }
 
     public Vector getPointTwoVector() {
-        return pointTwoVector;
+        return new Vector(pointTwoVectorX, pointTwoVectorY, pointTwoVectorZ);
     }
 
     public void setPointTwoVector(Vector pointTwoVector) {
-        this.pointTwoVector = pointTwoVector;
+        this.pointTwoVectorX = pointTwoVector.getBlockX();
+        this.pointTwoVectorY = pointTwoVector.getBlockY();
+        this.pointTwoVectorZ = pointTwoVector.getBlockZ();
     }
 
     public BoundingBox getBoundingBox() {
-        return new BoundingBox(pointOneVector, pointOneVector);
+        return new BoundingBox(getPointOneVector(), getPointTwoVector());
     }
 }
