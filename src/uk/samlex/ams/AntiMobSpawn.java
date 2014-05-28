@@ -23,7 +23,7 @@ public class AntiMobSpawn extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new EntitySpawnHandler(), instance());
     }
-    
+
     public static AntiMobSpawn instance() {
         return INSTANCE;
     }
