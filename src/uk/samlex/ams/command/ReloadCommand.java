@@ -1,5 +1,6 @@
 package uk.samlex.ams.command;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.command.Command;
@@ -18,6 +19,6 @@ public class ReloadCommand extends GenericCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        return null;
+        return new ArrayList<String>(0);
     }
 }

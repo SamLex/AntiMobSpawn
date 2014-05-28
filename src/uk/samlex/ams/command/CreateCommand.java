@@ -1,5 +1,6 @@
 package uk.samlex.ams.command;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -52,7 +53,7 @@ public class CreateCommand extends GenericCommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length < 2)
-            return null;
+            return new ArrayList<String>(0);
 
         World[] worlds = sender.getServer().getWorlds().toArray(new World[0]);
         String[] worldNames = new String[worlds.length];
