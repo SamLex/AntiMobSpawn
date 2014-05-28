@@ -7,6 +7,13 @@ import javax.persistence.PersistenceException;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import uk.samlex.ams.command.CreateCommand;
+import uk.samlex.ams.command.GenericCommand;
+import uk.samlex.ams.command.ListCommand;
+import uk.samlex.ams.command.PreviewCommand;
+import uk.samlex.ams.command.ReloadCommand;
+import uk.samlex.ams.command.RemoveCommand;
+import uk.samlex.ams.command.SetCommand;
 import uk.samlex.ams.config.WorldZone;
 import uk.samlex.ams.config.ConfigStore;
 import uk.samlex.ams.event.EntitySpawnHandler;
@@ -22,6 +29,30 @@ public class AntiMobSpawn extends JavaPlugin {
         new ConfigStore();
 
         getServer().getPluginManager().registerEvents(new EntitySpawnHandler(), instance());
+
+        GenericCommand createCommand = new CreateCommand();
+        getCommand("ams-create").setExecutor(createCommand);
+        getCommand("ams-create").setTabCompleter(createCommand);
+
+        GenericCommand listCommand = new ListCommand();
+        getCommand("ams-list").setExecutor(listCommand);
+        getCommand("ams-list").setTabCompleter(listCommand);
+
+        GenericCommand previewCommand = new PreviewCommand();
+        getCommand("ams-preview").setExecutor(previewCommand);
+        getCommand("ams-preview").setTabCompleter(previewCommand);
+
+        GenericCommand reloadCommand = new ReloadCommand();
+        getCommand("ams-reload").setExecutor(reloadCommand);
+        getCommand("ams-reload").setTabCompleter(reloadCommand);
+
+        GenericCommand removeCommand = new RemoveCommand();
+        getCommand("ams-remove").setExecutor(removeCommand);
+        getCommand("ams-remove").setTabCompleter(removeCommand);
+
+        GenericCommand setCommand = new SetCommand();
+        getCommand("ams-set").setExecutor(setCommand);
+        getCommand("ams-set").setTabCompleter(setCommand);
     }
 
     public static AntiMobSpawn instance() {
