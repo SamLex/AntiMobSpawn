@@ -86,7 +86,7 @@ public class WorldZone {
     public void setPointTwoVector(Vector pointTwoVector) {
         this.pointTwoVector = pointTwoVector;
     }
-    
+
     public BoundingBox getBoundingBox() {
         return new BoundingBox(pointOneVector, pointOneVector);
     }

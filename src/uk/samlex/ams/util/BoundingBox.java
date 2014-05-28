@@ -12,9 +12,9 @@ public class BoundingBox {
     }
 
     public boolean withinBoundingBox(Vector point) {
-        if(point.getBlockX() >= minimum.getBlockX() && point.getBlockX() <=maximum.getBlockX()) {
-            if(point.getBlockY() >= minimum.getBlockY() && point.getBlockY() <=maximum.getBlockY()) {
-                if(point.getBlockZ() >= minimum.getBlockZ() && point.getBlockZ() <=maximum.getBlockZ()) {
+        if (point.getBlockX() >= minimum.getBlockX() && point.getBlockX() <= maximum.getBlockX()) {
+            if (point.getBlockY() >= minimum.getBlockY() && point.getBlockY() <= maximum.getBlockY()) {
+                if (point.getBlockZ() >= minimum.getBlockZ() && point.getBlockZ() <= maximum.getBlockZ()) {
                     return true;
                 }
             }
