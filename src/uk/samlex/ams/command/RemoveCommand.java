@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -45,26 +44,32 @@ public class RemoveCommand extends GenericCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length > 0 && sender instanceof Player) {
-            WorldZone[] zones = AntiMobSpawn.instance().getDatabase().find(WorldZone.class).where().ieq("worldName", ((Player) sender).getWorld().getName()).findList().toArray(new WorldZone[0]);
-            String[] zoneNames = new String[zones.length];
+        String[] possiblities;
+        String part;
 
-            for (int i = 0; i < zoneNames.length; i++) {
-                zoneNames[i] = zones[i].getZoneName();
-            }
+        switch (args.length) {
+            case 1:
+                if (sender instanceof Player) {
+                    WorldZone[] zones = AntiMobSpawn.instance().getDatabase().find(WorldZone.class).where().ieq("worldName", ((Player) sender).getWorld().getName()).findList().toArray(new WorldZone[0]);
+                    String[] zoneNames = new String[zones.length];
 
-            return checkPartialArgument(args[0], zoneNames);
-        } else if (args.length > 1) {
-            World[] worlds = sender.getServer().getWorlds().toArray(new World[0]);
-            String[] worldNames = new String[worlds.length];
+                    for (int i = 0; i < zoneNames.length; i++) {
+                        zoneNames[i] = zones[i].getZoneName();
+                    }
 
-            for (int i = 0; i < worldNames.length; i++) {
-                worldNames[i] = worlds[i].getName();
-            }
-            return checkPartialArgument(args[1], worldNames);
-        } else {
-            return new ArrayList<String>(0);
+                    possiblities = zoneNames;
+                    part = args[0];
+                } else {
+                    return new ArrayList<String>(0);
+                }
+            case 2:
+                possiblities = getWorldNames();
+                part = args[1];
+                break;
+            default:
+                return new ArrayList<String>(0);
         }
 
+        return checkPartialArgument(part, possiblities);
     }
 }

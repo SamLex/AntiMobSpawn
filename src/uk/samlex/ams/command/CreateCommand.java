@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -52,16 +51,18 @@ public class CreateCommand extends GenericCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length < 2)
-            return new ArrayList<String>(0);
+        String[] possiblities;
+        String part;
 
-        World[] worlds = sender.getServer().getWorlds().toArray(new World[0]);
-        String[] worldNames = new String[worlds.length];
-
-        for (int i = 0; i < worldNames.length; i++) {
-            worldNames[i] = worlds[i].getName();
+        switch (args.length) {
+            case 2:
+                possiblities = getWorldNames();
+                part = args[1];
+                break;
+            default:
+                return new ArrayList<String>(0);
         }
 
-        return checkPartialArgument(args[1], worldNames);
+        return checkPartialArgument(part, possiblities);
     }
 }

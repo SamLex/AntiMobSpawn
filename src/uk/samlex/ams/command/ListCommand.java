@@ -40,16 +40,18 @@ public class ListCommand extends GenericCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length < 1)
-            return new ArrayList<String>(0);
-
-        World[] worlds = sender.getServer().getWorlds().toArray(new World[0]);
-        String[] worldNames = new String[worlds.length];
-
-        for (int i = 0; i < worldNames.length; i++) {
-            worldNames[i] = worlds[i].getName();
+        String[] possiblities;
+        String part;
+        
+        switch (args.length) {
+            case 1:
+                possiblities = getWorldNames();
+                part = args[1];
+                break;
+            default:
+                return new ArrayList<String>(0);
         }
 
-        return checkPartialArgument(args[0], worldNames);
+        return checkPartialArgument(part, possiblities);
     }
 }
