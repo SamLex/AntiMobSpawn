@@ -2,7 +2,6 @@ package uk.samlex.ams.event;
 
 import java.util.List;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -39,6 +38,19 @@ public class EntitySpawnHandler implements Listener {
     }
 
     private void worldModeGlobal(CreatureSpawnEvent cse, WorldConfig worldConfig) {
+        switch (worldConfig.getHeightLimitMode()) {
+            case ABOVE:
+                if (cse.getLocation().getY() < worldConfig.getHeightLimit()) {
+                    return;
+                }
+                break;
+            case BELOW:
+                if (cse.getLocation().getY() > worldConfig.getHeightLimit()) {
+                    return;
+                }
+                break;
+        }
+
         commonConditions(cse, worldConfig);
     }
 
@@ -67,23 +79,8 @@ public class EntitySpawnHandler implements Listener {
     }
 
     private void commonConditions(CreatureSpawnEvent cse, WorldConfig worldConfig) {
-        Location location = cse.getLocation();
-
-        if (location.getWorld().getTime() < worldConfig.getSafeTimeStart() || location.getWorld().getTime() > worldConfig.getSafeTimeEnd()) {
+        if (cse.getLocation().getWorld().getTime() < worldConfig.getSafeTimeStart() || cse.getLocation().getWorld().getTime() > worldConfig.getSafeTimeEnd()) {
             return;
-        }
-
-        switch (worldConfig.getHeightLimitMode()) {
-            case ABOVE:
-                if (location.getY() < worldConfig.getHeightLimit()) {
-                    return;
-                }
-                break;
-            case BELOW:
-                if (location.getY() > worldConfig.getHeightLimit()) {
-                    return;
-                }
-                break;
         }
 
         if (!worldConfig.isAllSpawnReasons()) {
@@ -99,7 +96,7 @@ public class EntitySpawnHandler implements Listener {
         }
 
         if (!worldConfig.isAllBlocks()) {
-            Material mat = location.subtract(0, 1, 0).getBlock().getType();
+            Material mat = cse.getLocation().subtract(0, 1, 0).getBlock().getType();
 
             if (!worldConfig.getBlockMap().containsKey(mat) || !worldConfig.getBlockMap().get(mat)) {
                 return;
@@ -109,7 +106,7 @@ public class EntitySpawnHandler implements Listener {
         cse.setCancelled(true);
 
         if (ConfigStore.instance().isDebug()) {
-            AntiMobSpawn.instance().getLogger().info(String.format("Stopped spawn of %s at [%s], with reason %s, on block %s", cse.getEntityType().toString(), location.toVector().toString(), cse.getSpawnReason().toString(), location.subtract(0, 1, 0).getBlock().getType().toString()));
+            AntiMobSpawn.instance().getLogger().info(String.format("Stopped spawn of %s at [%s], with reason %s, on block %s", cse.getEntityType().toString(), cse.getLocation().toVector().toString(), cse.getSpawnReason().toString(), cse.getLocation().subtract(0, 1, 0).getBlock().getType().toString()));
         }
     }
 }
