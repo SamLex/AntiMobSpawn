@@ -45,16 +45,26 @@ public class RemoveCommand extends GenericCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length < 2)
+        if (args.length > 0 && sender instanceof Player) {
+            WorldZone[] zones = AntiMobSpawn.instance().getDatabase().find(WorldZone.class).where().ieq("worldName", ((Player) sender).getWorld().getName()).findList().toArray(new WorldZone[0]);
+            String[] zoneNames = new String[zones.length];
+
+            for (int i = 0; i < zoneNames.length; i++) {
+                zoneNames[i] = zones[i].getZoneName();
+            }
+
+            return checkPartialArgument(args[0], zoneNames);
+        } else if (args.length > 1) {
+            World[] worlds = sender.getServer().getWorlds().toArray(new World[0]);
+            String[] worldNames = new String[worlds.length];
+
+            for (int i = 0; i < worldNames.length; i++) {
+                worldNames[i] = worlds[i].getName();
+            }
+            return checkPartialArgument(args[1], worldNames);
+        } else {
             return new ArrayList<String>(0);
-
-        World[] worlds = sender.getServer().getWorlds().toArray(new World[0]);
-        String[] worldNames = new String[worlds.length];
-
-        for (int i = 0; i < worldNames.length; i++) {
-            worldNames[i] = worlds[i].getName();
         }
 
-        return checkPartialArgument(args[1], worldNames);
     }
 }
