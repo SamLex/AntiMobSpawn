@@ -28,25 +28,27 @@ public class WorldConfig {
     private WorldMode worldMode = WorldMode.NONE;
 
     public WorldConfig(String worldName) {
-        ConfigStore config = ConfigStore.instance();
-
         this.worldName = worldName;
+        this.blockMap = new HashMap<Material, Boolean>();
+        this.entityMap = new HashMap<EntityType, Boolean>();
+        this.spawnReasonMap = new HashMap<SpawnReason, Boolean>();
+
+        ConfigStore config = ConfigStore.instance();
 
         worldMode = (WorldMode) config.getConfigEnum(worldName, "world mode", worldMode);
         safeTimeStart = config.getConfigInt(worldName, "safe time start", safeTimeStart);
         safeTimeEnd = config.getConfigInt(worldName, "safe time end", safeTimeEnd);
-        allBlocks = config.getConfigBoolean(worldName, "all block types", allBlocks);
-        allSpawnReasons = config.getConfigBoolean(worldName, "all spawn reasons", allSpawnReasons);
-        allCreatures = config.getConfigBoolean(worldName, "all creatures", allCreatures);
+
         heightLimitMode = (HeightLimitMode) config.getConfigEnum(worldName, "global.height limit mode", heightLimitMode);
         heightLimit = config.getConfigInt(worldName, "global.height limit", heightLimit);
 
-        blockMap = new HashMap<Material, Boolean>();
-        entityMap = new HashMap<EntityType, Boolean>();
-        spawnReasonMap = new HashMap<SpawnReason, Boolean>();
-
+        allBlocks = config.getConfigBoolean(worldName, "all block types", allBlocks);
         setupBlockMap(config);
+
+        allSpawnReasons = config.getConfigBoolean(worldName, "all spawn reasons", allSpawnReasons);
         setupSpawnReasonMap(config);
+
+        allCreatures = config.getConfigBoolean(worldName, "all creatures", allCreatures);
         setupEntityMap(config);
     }
 
