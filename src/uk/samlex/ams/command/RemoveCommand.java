@@ -50,24 +50,16 @@ public class RemoveCommand extends GenericCommand {
         switch (args.length) {
             case 1:
                 if (sender instanceof Player) {
-                    WorldZone[] zones = AntiMobSpawn.instance().getDatabase().find(WorldZone.class).where().ieq("worldName", ((Player) sender).getWorld().getName()).findList().toArray(new WorldZone[0]);
-                    String[] zoneNames = new String[zones.length];
-
-                    for (int i = 0; i < zoneNames.length; i++) {
-                        zoneNames[i] = zones[i].getZoneName();
-                    }
-
-                    possiblities = zoneNames;
+                    possiblities = getZoneNames(((Player) sender).getWorld().getName());
                     part = args[0];
-                } else {
-                    return new ArrayList<String>(0);
+                    break;
                 }
+            default:
+                return new ArrayList<String>(0);
             case 2:
                 possiblities = getWorldNames();
                 part = args[1];
                 break;
-            default:
-                return new ArrayList<String>(0);
         }
 
         return checkPartialArgument(part, possiblities);

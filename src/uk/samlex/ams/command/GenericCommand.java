@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
 
 import uk.samlex.ams.AntiMobSpawn;
+import uk.samlex.ams.config.WorldZone;
 
 public abstract class GenericCommand implements CommandExecutor, TabCompleter {
 
@@ -30,5 +31,16 @@ public abstract class GenericCommand implements CommandExecutor, TabCompleter {
         }
 
         return worldNames;
+    }
+    
+    protected static String[] getZoneNames(String worldName) {
+        WorldZone[] zones = AntiMobSpawn.instance().getDatabase().find(WorldZone.class).where().ieq("worldName", worldName).findList().toArray(new WorldZone[0]);
+        String[] zoneNames = new String[zones.length];
+
+        for (int i = 0; i < zoneNames.length; i++) {
+            zoneNames[i] = zones[i].getZoneName();
+        }
+        
+        return zoneNames;
     }
 }
