@@ -85,10 +85,33 @@ public class SetCommand extends GenericCommand {
         return true;
     }
 
-    // TODO: set command tab complete
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        return new ArrayList<String>(0);
+        String[] possiblities;
+        String part;
+
+        switch (args.length) {
+            case 2:
+                possiblities = new String[] { "one", "two" };
+                part = args[1];
+            case 6:
+                possiblities = getWorldNames();
+                part = args[5];
+                break;
+            case 1:
+                if (sender instanceof Player) {
+                    possiblities = getZoneNames(((Player) sender).getWorld().getName());
+                    part = args[0];
+                    break;
+                }
+            case 3:
+            case 4:
+            case 5:
+            default:
+                return new ArrayList<String>(0);
+        }
+
+        return checkPartialArgument(part, possiblities);
     }
 
     private Block playerLookingAt(Player player) {
