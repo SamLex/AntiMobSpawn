@@ -42,10 +42,22 @@ public class WorldZone {
     private String zoneName;
 
     @NotNull
-    private int pointOneVectorX, pointOneVectorY, pointOneVectorZ;
+    private int pointOneVectorX;
 
     @NotNull
-    private int pointTwoVectorX, pointTwoVectorY, pointTwoVectorZ;
+    private int pointOneVectorY;
+
+    @NotNull
+    private int pointOneVectorZ;
+
+    @NotNull
+    private int pointTwoVectorX;
+
+    @NotNull
+    private int pointTwoVectorY;
+
+    @NotNull
+    private int pointTwoVectorZ;
 
     public int getId() {
         return id;
@@ -69,30 +81,6 @@ public class WorldZone {
 
     public void setZoneName(String zoneName) {
         this.zoneName = zoneName;
-    }
-
-    public Vector getPointOneVector() {
-        return new Vector(pointOneVectorX, pointOneVectorY, pointOneVectorZ);
-    }
-
-    public void setPointOneVector(Vector pointOneVector) {
-        this.pointOneVectorX = pointOneVector.getBlockX();
-        this.pointOneVectorY = pointOneVector.getBlockY();
-        this.pointOneVectorZ = pointOneVector.getBlockZ();
-    }
-
-    public Vector getPointTwoVector() {
-        return new Vector(pointTwoVectorX, pointTwoVectorY, pointTwoVectorZ);
-    }
-
-    public void setPointTwoVector(Vector pointTwoVector) {
-        this.pointTwoVectorX = pointTwoVector.getBlockX();
-        this.pointTwoVectorY = pointTwoVector.getBlockY();
-        this.pointTwoVectorZ = pointTwoVector.getBlockZ();
-    }
-
-    public BoundingBox getBoundingBox() {
-        return new BoundingBox(getPointOneVector(), getPointTwoVector());
     }
 
     public int getPointOneVectorX() {
@@ -141,5 +129,29 @@ public class WorldZone {
 
     public void setPointTwoVectorZ(int pointTwoVectorZ) {
         this.pointTwoVectorZ = pointTwoVectorZ;
+    }
+
+    public static Vector getPointOneVector(WorldZone worldZone) {
+        return new Vector(worldZone.getPointOneVectorX(), worldZone.getPointOneVectorY(), worldZone.getPointOneVectorZ());
+    }
+
+    public static void setPointOneVector(WorldZone worldZone, Vector pointOneVector) {
+        worldZone.setPointOneVectorX(pointOneVector.getBlockX());
+        worldZone.setPointOneVectorY(pointOneVector.getBlockY());
+        worldZone.setPointOneVectorZ(pointOneVector.getBlockZ());
+    }
+
+    public static Vector getPointTwoVector(WorldZone worldZone) {
+        return new Vector(worldZone.getPointTwoVectorX(), worldZone.getPointTwoVectorY(), worldZone.getPointTwoVectorZ());
+    }
+
+    public static void setPointTwoVector(WorldZone worldZone, Vector pointTwoVector) {
+        worldZone.setPointTwoVectorX(pointTwoVector.getBlockX());
+        worldZone.setPointTwoVectorY(pointTwoVector.getBlockY());
+        worldZone.setPointTwoVectorZ(pointTwoVector.getBlockZ());
+    }
+
+    public static BoundingBox getBoundingBox(WorldZone worldZone) {
+        return new BoundingBox(getPointOneVector(worldZone), getPointTwoVector(worldZone));
     }
 }

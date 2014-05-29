@@ -38,8 +38,8 @@ public class CreateCommand extends GenericCommand {
             zone = new WorldZone();
             zone.setWorldName(worldName);
             zone.setZoneName(zoneName);
-            zone.setPointOneVector(new Vector());
-            zone.setPointTwoVector(new Vector());
+            WorldZone.setPointOneVector(zone, new Vector());
+            WorldZone.setPointTwoVector(zone, new Vector());
 
             AntiMobSpawn.instance().getDatabase().save(zone);
             sender.sendMessage(ChatColor.GREEN + "Created zone " + zoneName + " on " + worldName);

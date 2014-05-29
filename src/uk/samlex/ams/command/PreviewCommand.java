@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-
+//TODO: preview command
 public class PreviewCommand extends GenericCommand {
 
     @Override

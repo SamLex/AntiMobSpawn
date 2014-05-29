@@ -59,7 +59,7 @@ public class EntitySpawnHandler implements Listener {
         WorldZone zone = null;
 
         for (WorldZone test : zoneList) {
-            if (test.getBoundingBox().withinBoundingBox(cse.getLocation().toVector())) {
+            if (WorldZone.getBoundingBox(test).withinBoundingBox(cse.getLocation().toVector())) {
                 zone = test;
                 break;
             }
