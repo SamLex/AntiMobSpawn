@@ -78,7 +78,7 @@ public class SetCommand extends GenericCommand {
                     return false;
             }
 
-            sender.sendMessage(ChatColor.GREEN + "Set point " + point + " of " + zoneName + " on " + worldName + " to " + pointVector.toString());
+            sender.sendMessage(ChatColor.GREEN + "Set point " + point + " of " + zoneName + " on " + worldName + " to " + blockVectorString(pointVector));
             AntiMobSpawn.instance().getDatabase().save(zone);
         }
 

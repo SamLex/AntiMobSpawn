@@ -31,7 +31,7 @@ public class ListCommand extends GenericCommand {
             zones = AntiMobSpawn.instance().getDatabase().find(WorldZone.class).where().ieq("worldName", worldName).findList();
 
             for (WorldZone zone : zones) {
-                sender.sendMessage(ChatColor.GOLD + "    " + zone.getZoneName() + " - point one: " + WorldZone.getPointOneVector(zone) + ", point two: " + WorldZone.getPointTwoVector(zone));
+                sender.sendMessage(ChatColor.GOLD + "    " + zone.getZoneName() + " - point one: " + blockVectorString(WorldZone.getPointOneVector(zone)) + ", point two: " + blockVectorString(WorldZone.getPointTwoVector(zone)));
             }
         }
 
@@ -42,7 +42,7 @@ public class ListCommand extends GenericCommand {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         String[] possiblities;
         String part;
-        
+
         switch (args.length) {
             case 1:
                 possiblities = getWorldNames();

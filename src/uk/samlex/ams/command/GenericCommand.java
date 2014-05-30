@@ -6,6 +6,7 @@ import java.util.List;
 import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.util.Vector;
 
 import uk.samlex.ams.AntiMobSpawn;
 import uk.samlex.ams.config.WorldZone;
@@ -42,5 +43,9 @@ public abstract class GenericCommand implements CommandExecutor, TabCompleter {
         }
         
         return zoneNames;
+    }
+    
+    protected static String blockVectorString(Vector blockVector) {
+        return String.format("%d,%d,%d",  blockVector.getBlockX(), blockVector.getBlockY(), blockVector.getBlockZ());
     }
 }
