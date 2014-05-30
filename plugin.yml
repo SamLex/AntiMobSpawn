@@ -31,7 +31,7 @@ commands:
         permission: ams.set
         permission-message: You don't have permission to change an existing zone
     ams-preview:
-        description: Visibly see an existing zone using blocks. Types available: corners, fill, outline, walls 
+        description: Visibly see an existing zone using blocks. Types available - corners, fill, outline, walls.
         usage: /ams-preview <zone name> <preview type> <block> <replace> [world name]
         permission: ams.preview
         permission-message: You don't have permission to preview an existing zone
