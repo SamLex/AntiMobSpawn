@@ -33,11 +33,11 @@ public class BoundingBox {
             case FILL:
                 previewFill(world, mat, replace);
                 break;
+            case HOLLOW:
+                previewHollow(world, mat, replace);
+                break;
             case OUTLINE:
                 previewOutline(world, mat, replace);
-                break;
-            case WALLS:
-                previewWalls(world, mat, replace);
                 break;
         }
     }
@@ -86,7 +86,7 @@ public class BoundingBox {
         }
     }
 
-    private void previewWalls(World world, Material mat, boolean replace) {
+    private void previewHollow(World world, Material mat, boolean replace) {
         for (int y = minimum.getBlockY(); y <= maximum.getBlockY(); y++) {
             for (int x = minimum.getBlockX(); x <= maximum.getBlockX(); x++) {
                 setBlockAt(world, x, y, minimum.getBlockZ(), mat, replace);

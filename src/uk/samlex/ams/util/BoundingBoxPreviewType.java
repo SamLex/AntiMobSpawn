@@ -13,16 +13,16 @@ public enum BoundingBoxPreviewType {
             return "fill";
         }
     },
+    HOLLOW {
+        @Override
+        public String toString() {
+            return "hollow";
+        }
+    },
     OUTLINE {
         @Override
         public String toString() {
             return "outline";
         }
     },
-    WALLS {
-        @Override
-        public String toString() {
-            return "walls";
-        }
-    }
 }

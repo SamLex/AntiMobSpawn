@@ -94,6 +94,7 @@ public class SetCommand extends GenericCommand {
             case 2:
                 possiblities = new String[] { "one", "two" };
                 part = args[1];
+                break;
             case 6:
                 possiblities = getWorldNames();
                 part = args[5];
