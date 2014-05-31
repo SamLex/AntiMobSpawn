@@ -46,7 +46,7 @@ public class ListCommand extends GenericCommand {
         switch (args.length) {
             case 1:
                 possiblities = getWorldNames();
-                part = args[1];
+                part = args[0];
                 break;
             default:
                 return new ArrayList<String>(0);
