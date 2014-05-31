@@ -12,9 +12,13 @@ public class ConfigStore {
 
     private static ConfigStore INSTANCE;
 
-    private FileConfiguration configFile;
+    public static ConfigStore instance() {
+        return INSTANCE;
+    }
 
+    private FileConfiguration configFile;
     private boolean debug = false;
+
     private HashMap<String, WorldConfig> worldConfigMap;
 
     public ConfigStore() {
@@ -33,40 +37,19 @@ public class ConfigStore {
         AntiMobSpawn.instance().saveConfig();
     }
 
-    public static ConfigStore instance() {
-        return INSTANCE;
-    }
-
-    public HashMap<String, WorldConfig> getWorldConfigMap() {
-        return worldConfigMap;
-    }
-
-    public FileConfiguration getConfigFile() {
-        return configFile;
+    private boolean configSet(String completePath, Object def) {
+        if (!configFile.contains(completePath)) {
+            configFile.set(completePath, def);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     protected boolean getConfigBoolean(String world, String path, boolean def) {
         String completePath = world + "." + path;
         if (!configSet(completePath, def)) {
             return configFile.getBoolean(completePath);
-        } else {
-            return def;
-        }
-    }
-
-    protected String getConfigString(String world, String path, String def) {
-        String completePath = world + "." + path;
-        if (!configSet(completePath, def)) {
-            return configFile.getString(completePath);
-        } else {
-            return def;
-        }
-    }
-
-    protected int getConfigInt(String world, String path, int def) {
-        String completePath = world + "." + path;
-        if (!configSet(completePath, def)) {
-            return configFile.getInt(completePath);
         } else {
             return def;
         }
@@ -93,6 +76,28 @@ public class ConfigStore {
         }
     }
 
+    public FileConfiguration getConfigFile() {
+        return configFile;
+    }
+
+    protected int getConfigInt(String world, String path, int def) {
+        String completePath = world + "." + path;
+        if (!configSet(completePath, def)) {
+            return configFile.getInt(completePath);
+        } else {
+            return def;
+        }
+    }
+
+    protected String getConfigString(String world, String path, String def) {
+        String completePath = world + "." + path;
+        if (!configSet(completePath, def)) {
+            return configFile.getString(completePath);
+        } else {
+            return def;
+        }
+    }
+
     protected List<String> getConfigStringList(String world, String path, List<String> def) {
         String completePath = world + "." + path;
         if (!configSet(completePath, def)) {
@@ -102,13 +107,8 @@ public class ConfigStore {
         }
     }
 
-    private boolean configSet(String completePath, Object def) {
-        if (!configFile.contains(completePath)) {
-            configFile.set(completePath, def);
-            return true;
-        } else {
-            return false;
-        }
+    public HashMap<String, WorldConfig> getWorldConfigMap() {
+        return worldConfigMap;
     }
 
     public boolean isDebug() {
@@ -116,6 +116,8 @@ public class ConfigStore {
     }
 
     public void reloadConfig() {
+        AntiMobSpawn.instance().reloadConfig();
+
         configFile = AntiMobSpawn.instance().getConfig();
         debug = getConfigBoolean("", "debug", debug);
         worldConfigMap = new HashMap<String, WorldConfig>();
