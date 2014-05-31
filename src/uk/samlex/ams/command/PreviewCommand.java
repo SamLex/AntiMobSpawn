@@ -14,7 +14,6 @@ import uk.samlex.ams.AntiMobSpawn;
 import uk.samlex.ams.config.WorldZone;
 import uk.samlex.ams.util.BoundingBoxPreviewType;
 
-
 public class PreviewCommand extends GenericCommand {
 
     @Override
@@ -52,15 +51,14 @@ public class PreviewCommand extends GenericCommand {
 
         WorldZone zone = AntiMobSpawn.instance().getDatabase().find(WorldZone.class).where().ieq("worldName", worldName).ieq("zoneName", zoneName).findUnique();
         World world = sender.getServer().getWorld(worldName);
-        
+
         if (zone == null) {
             sender.sendMessage(ChatColor.RED + "A zone with this name does not exist on this world");
             return true;
         }
 
-        
         WorldZone.getBoundingBox(zone).previewBoundingBox(type, world, mat, replace);
-        
+
         return true;
     }
 

@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
 import uk.samlex.ams.util.EnumSort;
-import static org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
 @SuppressWarnings("deprecation")
 public class WorldConfig {
@@ -53,6 +53,54 @@ public class WorldConfig {
         setupEntityMap(config);
     }
 
+    public HashMap<Material, Boolean> getBlockMap() {
+        return blockMap;
+    }
+
+    public HashMap<EntityType, Boolean> getEntityMap() {
+        return entityMap;
+    }
+
+    public int getHeightLimit() {
+        return heightLimit;
+    }
+
+    public HeightLimitMode getHeightLimitMode() {
+        return heightLimitMode;
+    }
+
+    public int getSafeTimeEnd() {
+        return safeTimeEnd;
+    }
+
+    public int getSafeTimeStart() {
+        return safeTimeStart;
+    }
+
+    public HashMap<SpawnReason, Boolean> getSpawnReasonMap() {
+        return spawnReasonMap;
+    }
+
+    public WorldMode getWorldMode() {
+        return worldMode;
+    }
+
+    public String getWorldName() {
+        return worldName;
+    }
+
+    public boolean isAllBlocks() {
+        return allBlocks;
+    }
+
+    public boolean isAllCreatures() {
+        return allCreatures;
+    }
+
+    public boolean isAllSpawnReasons() {
+        return allSpawnReasons;
+    }
+
     private void setupBlockMap(ConfigStore config) {
         for (Material mat : EnumSort.sortEnumArrayAlphabetically(Material.values(), Material.class)) {
             if (mat.isBlock()) {
@@ -76,53 +124,5 @@ public class WorldConfig {
             }
             spawnReasonMap.put(reason, config.getConfigBoolean(worldName, "spawn reason" + "." + reason.toString().toLowerCase(), false));
         }
-    }
-
-    public HashMap<Material, Boolean> getBlockMap() {
-        return blockMap;
-    }
-
-    public HashMap<EntityType, Boolean> getEntityMap() {
-        return entityMap;
-    }
-
-    public HashMap<SpawnReason, Boolean> getSpawnReasonMap() {
-        return spawnReasonMap;
-    }
-
-    public HeightLimitMode getHeightLimitMode() {
-        return heightLimitMode;
-    }
-
-    public int getHeightLimit() {
-        return heightLimit;
-    }
-
-    public int getSafeTimeStart() {
-        return safeTimeStart;
-    }
-
-    public int getSafeTimeEnd() {
-        return safeTimeEnd;
-    }
-
-    public WorldMode getWorldMode() {
-        return worldMode;
-    }
-
-    public boolean isAllBlocks() {
-        return allBlocks;
-    }
-
-    public String getWorldName() {
-        return worldName;
-    }
-
-    public boolean isAllSpawnReasons() {
-        return allSpawnReasons;
-    }
-
-    public boolean isAllCreatures() {
-        return allCreatures;
     }
 }

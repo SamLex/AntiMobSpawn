@@ -14,13 +14,34 @@ import uk.samlex.ams.command.PreviewCommand;
 import uk.samlex.ams.command.ReloadCommand;
 import uk.samlex.ams.command.RemoveCommand;
 import uk.samlex.ams.command.SetCommand;
-import uk.samlex.ams.config.WorldZone;
 import uk.samlex.ams.config.ConfigStore;
+import uk.samlex.ams.config.WorldZone;
 import uk.samlex.ams.event.EntitySpawnHandler;
 
+// TODO: license readme, description and testing
 public class AntiMobSpawn extends JavaPlugin {
 
     private static AntiMobSpawn INSTANCE;
+
+    public static AntiMobSpawn instance() {
+        return INSTANCE;
+    }
+
+    public void checkDatabase() {
+        try {
+            getDatabase().find(WorldZone.class).findRowCount();
+        } catch (PersistenceException pe) {
+            getLogger().info("Installing database due to first time use");
+            installDDL();
+        }
+    }
+
+    @Override
+    public List<Class<?>> getDatabaseClasses() {
+        ArrayList<Class<?>> dbClasses = new ArrayList<Class<?>>(1);
+        dbClasses.add(WorldZone.class);
+        return dbClasses;
+    }
 
     @Override
     public void onEnable() {
@@ -53,25 +74,5 @@ public class AntiMobSpawn extends JavaPlugin {
         GenericCommand setCommand = new SetCommand();
         getCommand("ams-set").setExecutor(setCommand);
         getCommand("ams-set").setTabCompleter(setCommand);
-    }
-
-    public static AntiMobSpawn instance() {
-        return INSTANCE;
-    }
-
-    public void checkDatabase() {
-        try {
-            getDatabase().find(WorldZone.class).findRowCount();
-        } catch (PersistenceException pe) {
-            getLogger().info("Installing database due to first time use");
-            installDDL();
-        }
-    }
-
-    @Override
-    public List<Class<?>> getDatabaseClasses() {
-        ArrayList<Class<?>> dbClasses = new ArrayList<Class<?>>(1);
-        dbClasses.add(WorldZone.class);
-        return dbClasses;
     }
 }

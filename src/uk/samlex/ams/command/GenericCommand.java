@@ -13,6 +13,10 @@ import uk.samlex.ams.config.WorldZone;
 
 public abstract class GenericCommand implements CommandExecutor, TabCompleter {
 
+    protected static String blockVectorString(Vector blockVector) {
+        return String.format("%d,%d,%d", blockVector.getBlockX(), blockVector.getBlockY(), blockVector.getBlockZ());
+    }
+
     protected static List<String> checkPartialArgument(String partialArgument, String[] possiblities) {
         ArrayList<String> morePossible = new ArrayList<>();
         for (String s : possiblities) {
@@ -33,7 +37,7 @@ public abstract class GenericCommand implements CommandExecutor, TabCompleter {
 
         return worldNames;
     }
-    
+
     protected static String[] getZoneNames(String worldName) {
         WorldZone[] zones = AntiMobSpawn.instance().getDatabase().find(WorldZone.class).where().ieq("worldName", worldName).findList().toArray(new WorldZone[0]);
         String[] zoneNames = new String[zones.length];
@@ -41,11 +45,7 @@ public abstract class GenericCommand implements CommandExecutor, TabCompleter {
         for (int i = 0; i < zoneNames.length; i++) {
             zoneNames[i] = zones[i].getZoneName();
         }
-        
+
         return zoneNames;
-    }
-    
-    protected static String blockVectorString(Vector blockVector) {
-        return String.format("%d,%d,%d",  blockVector.getBlockX(), blockVector.getBlockY(), blockVector.getBlockZ());
     }
 }

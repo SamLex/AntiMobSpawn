@@ -1,21 +1,3 @@
-/*
- * AntiMobSpawn is a plugin for the Minecraft Server Mod Bukkit. AntiMobSpawn gives you ultimate control over the creatures that spawn in your Minecraft worlds
- * Copyright (C) 2011-2013 Euan J Hunter (SamLex) (Sam_Lex)
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
 package uk.samlex.ams.config;
 
 import javax.persistence.Entity;
@@ -31,6 +13,30 @@ import com.avaje.ebean.validation.NotNull;
 @Entity()
 @Table(name = "antimobspawn_world_zone")
 public class WorldZone {
+
+    public static BoundingBox getBoundingBox(WorldZone worldZone) {
+        return new BoundingBox(getPointOneVector(worldZone), getPointTwoVector(worldZone));
+    }
+
+    public static Vector getPointOneVector(WorldZone worldZone) {
+        return new Vector(worldZone.getPointOneVectorX(), worldZone.getPointOneVectorY(), worldZone.getPointOneVectorZ());
+    }
+
+    public static Vector getPointTwoVector(WorldZone worldZone) {
+        return new Vector(worldZone.getPointTwoVectorX(), worldZone.getPointTwoVectorY(), worldZone.getPointTwoVectorZ());
+    }
+
+    public static void setPointOneVector(WorldZone worldZone, Vector pointOneVector) {
+        worldZone.setPointOneVectorX(pointOneVector.getBlockX());
+        worldZone.setPointOneVectorY(pointOneVector.getBlockY());
+        worldZone.setPointOneVectorZ(pointOneVector.getBlockZ());
+    }
+
+    public static void setPointTwoVector(WorldZone worldZone, Vector pointTwoVector) {
+        worldZone.setPointTwoVectorX(pointTwoVector.getBlockX());
+        worldZone.setPointTwoVectorY(pointTwoVector.getBlockY());
+        worldZone.setPointTwoVectorZ(pointTwoVector.getBlockZ());
+    }
 
     @Id
     private int id;
@@ -63,95 +69,71 @@ public class WorldZone {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getWorldName() {
-        return worldName;
-    }
-
-    public void setWorldName(String worldName) {
-        this.worldName = worldName;
-    }
-
-    public String getZoneName() {
-        return zoneName;
-    }
-
-    public void setZoneName(String zoneName) {
-        this.zoneName = zoneName;
-    }
-
     public int getPointOneVectorX() {
         return pointOneVectorX;
-    }
-
-    public void setPointOneVectorX(int pointOneVectorX) {
-        this.pointOneVectorX = pointOneVectorX;
     }
 
     public int getPointOneVectorY() {
         return pointOneVectorY;
     }
 
-    public void setPointOneVectorY(int pointOneVectorY) {
-        this.pointOneVectorY = pointOneVectorY;
-    }
-
     public int getPointOneVectorZ() {
         return pointOneVectorZ;
-    }
-
-    public void setPointOneVectorZ(int pointOneVectorZ) {
-        this.pointOneVectorZ = pointOneVectorZ;
     }
 
     public int getPointTwoVectorX() {
         return pointTwoVectorX;
     }
 
-    public void setPointTwoVectorX(int pointTwoVectorX) {
-        this.pointTwoVectorX = pointTwoVectorX;
-    }
-
     public int getPointTwoVectorY() {
         return pointTwoVectorY;
-    }
-
-    public void setPointTwoVectorY(int pointTwoVectorY) {
-        this.pointTwoVectorY = pointTwoVectorY;
     }
 
     public int getPointTwoVectorZ() {
         return pointTwoVectorZ;
     }
 
+    public String getWorldName() {
+        return worldName;
+    }
+
+    public String getZoneName() {
+        return zoneName;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPointOneVectorX(int pointOneVectorX) {
+        this.pointOneVectorX = pointOneVectorX;
+    }
+
+    public void setPointOneVectorY(int pointOneVectorY) {
+        this.pointOneVectorY = pointOneVectorY;
+    }
+
+    public void setPointOneVectorZ(int pointOneVectorZ) {
+        this.pointOneVectorZ = pointOneVectorZ;
+    }
+
+    public void setPointTwoVectorX(int pointTwoVectorX) {
+        this.pointTwoVectorX = pointTwoVectorX;
+    }
+
+    public void setPointTwoVectorY(int pointTwoVectorY) {
+        this.pointTwoVectorY = pointTwoVectorY;
+    }
+
     public void setPointTwoVectorZ(int pointTwoVectorZ) {
         this.pointTwoVectorZ = pointTwoVectorZ;
     }
 
-    public static Vector getPointOneVector(WorldZone worldZone) {
-        return new Vector(worldZone.getPointOneVectorX(), worldZone.getPointOneVectorY(), worldZone.getPointOneVectorZ());
+    public void setWorldName(String worldName) {
+        this.worldName = worldName;
     }
 
-    public static void setPointOneVector(WorldZone worldZone, Vector pointOneVector) {
-        worldZone.setPointOneVectorX(pointOneVector.getBlockX());
-        worldZone.setPointOneVectorY(pointOneVector.getBlockY());
-        worldZone.setPointOneVectorZ(pointOneVector.getBlockZ());
-    }
-
-    public static Vector getPointTwoVector(WorldZone worldZone) {
-        return new Vector(worldZone.getPointTwoVectorX(), worldZone.getPointTwoVectorY(), worldZone.getPointTwoVectorZ());
-    }
-
-    public static void setPointTwoVector(WorldZone worldZone, Vector pointTwoVector) {
-        worldZone.setPointTwoVectorX(pointTwoVector.getBlockX());
-        worldZone.setPointTwoVectorY(pointTwoVector.getBlockY());
-        worldZone.setPointTwoVectorZ(pointTwoVector.getBlockZ());
-    }
-
-    public static BoundingBox getBoundingBox(WorldZone worldZone) {
-        return new BoundingBox(getPointOneVector(worldZone), getPointTwoVector(worldZone));
+    public void setZoneName(String zoneName) {
+        this.zoneName = zoneName;
     }
 }

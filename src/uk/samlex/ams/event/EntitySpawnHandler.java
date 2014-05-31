@@ -15,6 +15,38 @@ import uk.samlex.ams.config.WorldZone;
 
 public class EntitySpawnHandler implements Listener {
 
+    private void commonConditions(CreatureSpawnEvent cse, WorldConfig worldConfig) {
+        if (cse.getLocation().getWorld().getTime() < worldConfig.getSafeTimeStart() || cse.getLocation().getWorld().getTime() > worldConfig.getSafeTimeEnd()) {
+            return;
+        }
+
+        if (!worldConfig.isAllSpawnReasons()) {
+            if (!worldConfig.getSpawnReasonMap().containsKey(cse.getSpawnReason()) || !worldConfig.getSpawnReasonMap().get(cse.getSpawnReason())) {
+                return;
+            }
+        }
+
+        if (!worldConfig.isAllCreatures()) {
+            if (!worldConfig.getEntityMap().containsKey(cse.getEntityType()) || !worldConfig.getEntityMap().get(cse.getEntityType())) {
+                return;
+            }
+        }
+
+        if (!worldConfig.isAllBlocks()) {
+            Material mat = cse.getLocation().subtract(0, 1, 0).getBlock().getType();
+
+            if (!worldConfig.getBlockMap().containsKey(mat) || !worldConfig.getBlockMap().get(mat)) {
+                return;
+            }
+        }
+
+        cse.setCancelled(true);
+
+        if (ConfigStore.instance().isDebug()) {
+            AntiMobSpawn.instance().getLogger().info(String.format("Stopped spawn of %s at [%s], with reason %s, on block %s", cse.getEntityType().toString(), cse.getLocation().toVector().toString(), cse.getSpawnReason().toString(), cse.getLocation().subtract(0, 1, 0).getBlock().getType().toString()));
+        }
+    }
+
     @EventHandler(priority = EventPriority.HIGH)
     public void onEntitySpawn(CreatureSpawnEvent cse) {
         WorldConfig worldConfig = ConfigStore.instance().getWorldConfigMap().get(cse.getLocation().getWorld().getName());
@@ -76,37 +108,5 @@ public class EntitySpawnHandler implements Listener {
         }
 
         commonConditions(cse, worldConfig);
-    }
-
-    private void commonConditions(CreatureSpawnEvent cse, WorldConfig worldConfig) {
-        if (cse.getLocation().getWorld().getTime() < worldConfig.getSafeTimeStart() || cse.getLocation().getWorld().getTime() > worldConfig.getSafeTimeEnd()) {
-            return;
-        }
-
-        if (!worldConfig.isAllSpawnReasons()) {
-            if (!worldConfig.getSpawnReasonMap().containsKey(cse.getSpawnReason()) || !worldConfig.getSpawnReasonMap().get(cse.getSpawnReason())) {
-                return;
-            }
-        }
-
-        if (!worldConfig.isAllCreatures()) {
-            if (!worldConfig.getEntityMap().containsKey(cse.getEntityType()) || !worldConfig.getEntityMap().get(cse.getEntityType())) {
-                return;
-            }
-        }
-
-        if (!worldConfig.isAllBlocks()) {
-            Material mat = cse.getLocation().subtract(0, 1, 0).getBlock().getType();
-
-            if (!worldConfig.getBlockMap().containsKey(mat) || !worldConfig.getBlockMap().get(mat)) {
-                return;
-            }
-        }
-
-        cse.setCancelled(true);
-
-        if (ConfigStore.instance().isDebug()) {
-            AntiMobSpawn.instance().getLogger().info(String.format("Stopped spawn of %s at [%s], with reason %s, on block %s", cse.getEntityType().toString(), cse.getLocation().toVector().toString(), cse.getSpawnReason().toString(), cse.getLocation().subtract(0, 1, 0).getBlock().getType().toString()));
-        }
     }
 }
