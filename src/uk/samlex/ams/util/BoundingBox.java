@@ -11,7 +11,7 @@ public class BoundingBox {
 
     public BoundingBox(Vector pointOne, Vector pointTwo) {
         this.minimum = Vector.getMinimum(pointOne, pointTwo);
-        this.maximum = Vector.getMaximum(pointOne, pointOne);
+        this.maximum = Vector.getMaximum(pointOne, pointTwo);
     }
 
     public void previewBoundingBox(BoundingBoxPreviewType type, World world, Material mat, boolean replace) {
