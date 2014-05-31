@@ -1,5 +1,3 @@
-{TODO}
-
 AntiMobSpawn
 The Pest Controlling Plugin
 
@@ -8,7 +6,7 @@ The essential pest control plugin and general creature manager. With per world s
 Features
 
 * Ultimate Creature Control
-* Per world settings with defaults
+* Per world settings
 * Control what blocks mobs can't spawn on
 * Control which mobs can spawn
 * Control how mobs can spawn

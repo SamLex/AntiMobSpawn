@@ -2,7 +2,7 @@ name: AntiMobSpawn
 version: 5.0
 main: uk.samlex.ams.AntiMobSpawn
 author: Sam_lex
-description: TODO
+description: Provides control over mob spawns on a per-world basis.
 database: true
 commands:
     ams-create:
