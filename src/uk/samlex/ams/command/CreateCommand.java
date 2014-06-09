@@ -27,9 +27,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import uk.samlex.ams.AntiMobSpawn;
-import uk.samlex.ams.config.WorldZone;
+import uk.samlex.bukkitcommon.command.BukkitCommand;
+import uk.samlex.bukkitcommon.config.WorldZone;
 
-public class CreateCommand extends GenericCommand {
+public class CreateCommand extends BukkitCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -73,7 +74,7 @@ public class CreateCommand extends GenericCommand {
 
         switch (args.length) {
             case 2:
-                possiblities = getWorldNames();
+                possiblities = getWorldNames(AntiMobSpawn.instance());
                 part = args[1];
                 break;
             default:

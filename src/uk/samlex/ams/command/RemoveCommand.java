@@ -26,9 +26,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import uk.samlex.ams.AntiMobSpawn;
-import uk.samlex.ams.config.WorldZone;
+import uk.samlex.bukkitcommon.command.BukkitCommand;
+import uk.samlex.bukkitcommon.config.WorldZone;
 
-public class RemoveCommand extends GenericCommand {
+public class RemoveCommand extends BukkitCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -67,14 +68,14 @@ public class RemoveCommand extends GenericCommand {
         switch (args.length) {
             case 1:
                 if (sender instanceof Player) {
-                    possiblities = getZoneNames(((Player) sender).getWorld().getName());
+                    possiblities = getZoneNames(((Player) sender).getWorld().getName(), AntiMobSpawn.instance());
                     part = args[0];
                     break;
                 }
             default:
                 return new ArrayList<String>(0);
             case 2:
-                possiblities = getWorldNames();
+                possiblities = getWorldNames(AntiMobSpawn.instance());
                 part = args[1];
                 break;
         }

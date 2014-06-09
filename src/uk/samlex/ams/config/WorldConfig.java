@@ -23,7 +23,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
-import uk.samlex.ams.util.EnumSort;
+import uk.samlex.ams.AntiMobSpawn;
+import uk.samlex.bukkitcommon.util.EnumSort;
 
 @SuppressWarnings("deprecation")
 public class WorldConfig {
@@ -53,11 +54,11 @@ public class WorldConfig {
 
         ConfigStore config = ConfigStore.instance();
 
-        worldMode = (WorldMode) config.getConfigEnum(worldName, "world mode", worldMode);
+        worldMode = config.getConfigEnum(worldName, "world mode", worldMode, WorldMode.class, AntiMobSpawn.instance());
         safeTimeStart = config.getConfigInt(worldName, "safe time start", safeTimeStart);
         safeTimeEnd = config.getConfigInt(worldName, "safe time end", safeTimeEnd);
 
-        heightLimitMode = (HeightLimitMode) config.getConfigEnum(worldName, "global.height limit mode", heightLimitMode);
+        heightLimitMode = config.getConfigEnum(worldName, "global.height limit mode", heightLimitMode, HeightLimitMode.class, AntiMobSpawn.instance());
         heightLimit = config.getConfigInt(worldName, "global.height limit", heightLimit);
 
         allBlocks = config.getConfigBoolean(worldName, "all block types", allBlocks);

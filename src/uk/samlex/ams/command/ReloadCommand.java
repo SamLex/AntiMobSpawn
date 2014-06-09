@@ -24,8 +24,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import uk.samlex.ams.config.ConfigStore;
+import uk.samlex.bukkitcommon.command.BukkitCommand;
 
-public class ReloadCommand extends GenericCommand {
+public class ReloadCommand extends BukkitCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

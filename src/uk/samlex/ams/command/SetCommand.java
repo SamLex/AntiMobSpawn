@@ -31,9 +31,10 @@ import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 
 import uk.samlex.ams.AntiMobSpawn;
-import uk.samlex.ams.config.WorldZone;
+import uk.samlex.bukkitcommon.command.BukkitCommand;
+import uk.samlex.bukkitcommon.config.WorldZone;
 
-public class SetCommand extends GenericCommand {
+public class SetCommand extends BukkitCommand {
 
     private static final Material[] lookAtIgnore = { Material.AIR, Material.WATER, Material.STATIONARY_WATER, Material.LAVA, Material.STATIONARY_LAVA };
 
@@ -113,12 +114,12 @@ public class SetCommand extends GenericCommand {
                 part = args[1];
                 break;
             case 6:
-                possiblities = getWorldNames();
+                possiblities = getWorldNames(AntiMobSpawn.instance());
                 part = args[5];
                 break;
             case 1:
                 if (sender instanceof Player) {
-                    possiblities = getZoneNames(((Player) sender).getWorld().getName());
+                    possiblities = getZoneNames(((Player) sender).getWorld().getName(), AntiMobSpawn.instance());
                     part = args[0];
                     break;
                 }

@@ -28,10 +28,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import uk.samlex.ams.AntiMobSpawn;
-import uk.samlex.ams.config.WorldZone;
-import uk.samlex.ams.util.BoundingBoxPreviewType;
+import uk.samlex.bukkitcommon.command.BukkitCommand;
+import uk.samlex.bukkitcommon.config.WorldZone;
+import uk.samlex.bukkitcommon.util.BoundingBoxPreviewType;
 
-public class PreviewCommand extends GenericCommand {
+public class PreviewCommand extends BukkitCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -110,12 +111,12 @@ public class PreviewCommand extends GenericCommand {
                 part = args[3];
                 break;
             case 5:
-                possiblities = getWorldNames();
+                possiblities = getWorldNames(AntiMobSpawn.instance());
                 part = args[4];
                 break;
             case 1:
                 if (sender instanceof Player) {
-                    possiblities = getZoneNames(((Player) sender).getWorld().getName());
+                    possiblities = getZoneNames(((Player) sender).getWorld().getName(), AntiMobSpawn.instance());
                     part = args[0];
                     break;
                 }

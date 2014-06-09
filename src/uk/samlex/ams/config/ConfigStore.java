@@ -18,14 +18,13 @@
 package uk.samlex.ams.config;
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.bukkit.World;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import uk.samlex.ams.AntiMobSpawn;
+import uk.samlex.bukkitcommon.config.Config;
 
-public class ConfigStore {
+public class ConfigStore extends Config {
 
     private static ConfigStore INSTANCE;
 
@@ -33,17 +32,17 @@ public class ConfigStore {
         return INSTANCE;
     }
 
-    private FileConfiguration configFile;
     private boolean debug = false;
 
     private HashMap<String, WorldConfig> worldConfigMap;
 
     public ConfigStore() {
+        super(AntiMobSpawn.instance());
+
         INSTANCE = this;
 
         AntiMobSpawn.instance().checkDatabase();
 
-        configFile = AntiMobSpawn.instance().getConfig();
         debug = getConfigBoolean("", "debug", debug);
         worldConfigMap = new HashMap<String, WorldConfig>();
 
@@ -52,76 +51,6 @@ public class ConfigStore {
         }
 
         AntiMobSpawn.instance().saveConfig();
-    }
-
-    private boolean configSet(String completePath, Object def) {
-        if (!configFile.contains(completePath)) {
-            configFile.set(completePath, def);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    protected boolean getConfigBoolean(String world, String path, boolean def) {
-        String completePath = world + "." + path;
-        if (!configSet(completePath, def)) {
-            return configFile.getBoolean(completePath);
-        } else {
-            return def;
-        }
-    }
-
-    protected Enum<?> getConfigEnum(String world, String path, Enum<?> def) {
-        String completePath = world + "." + path;
-        try {
-            if (!configSet(completePath, def.toString())) {
-                String e = getConfigString(world, path, def.toString()).toUpperCase();
-                if (def instanceof HeightLimitMode) {
-                    return HeightLimitMode.valueOf(e);
-                } else if (def instanceof WorldMode) {
-                    return WorldMode.valueOf(e);
-                } else {
-                    return null;
-                }
-            } else {
-                return def;
-            }
-        } catch (IllegalArgumentException iae) {
-            AntiMobSpawn.instance().getLogger().severe("Unknown string detected in " + completePath + ". Please check your config file.");
-            return null;
-        }
-    }
-
-    public FileConfiguration getConfigFile() {
-        return configFile;
-    }
-
-    protected int getConfigInt(String world, String path, int def) {
-        String completePath = world + "." + path;
-        if (!configSet(completePath, def)) {
-            return configFile.getInt(completePath);
-        } else {
-            return def;
-        }
-    }
-
-    protected String getConfigString(String world, String path, String def) {
-        String completePath = world + "." + path;
-        if (!configSet(completePath, def)) {
-            return configFile.getString(completePath);
-        } else {
-            return def;
-        }
-    }
-
-    protected List<String> getConfigStringList(String world, String path, List<String> def) {
-        String completePath = world + "." + path;
-        if (!configSet(completePath, def)) {
-            return configFile.getStringList(completePath);
-        } else {
-            return def;
-        }
     }
 
     public HashMap<String, WorldConfig> getWorldConfigMap() {
@@ -134,8 +63,8 @@ public class ConfigStore {
 
     public void reloadConfig() {
         AntiMobSpawn.instance().reloadConfig();
+        super.reloadConfig(AntiMobSpawn.instance());
 
-        configFile = AntiMobSpawn.instance().getConfig();
         debug = getConfigBoolean("", "debug", debug);
         worldConfigMap = new HashMap<String, WorldConfig>();
 

@@ -28,7 +28,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import uk.samlex.ams.AntiMobSpawn;
 import uk.samlex.ams.config.ConfigStore;
 import uk.samlex.ams.config.WorldConfig;
-import uk.samlex.ams.config.WorldZone;
+import uk.samlex.bukkitcommon.config.WorldZone;
 
 public class EntitySpawnHandler implements Listener {
 
