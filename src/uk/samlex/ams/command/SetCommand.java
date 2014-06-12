@@ -114,12 +114,12 @@ public class SetCommand extends BukkitCommand {
                 part = args[1];
                 break;
             case 6:
-                possiblities = getWorldNames(AntiMobSpawn.instance());
+                possiblities = getWorldNames(AntiMobSpawn.instance().getServer());
                 part = args[5];
                 break;
             case 1:
                 if (sender instanceof Player) {
-                    possiblities = getZoneNames(((Player) sender).getWorld().getName(), AntiMobSpawn.instance());
+                    possiblities = getZoneNames(((Player) sender).getWorld().getName(), AntiMobSpawn.instance().getDatabase());
                     part = args[0];
                     break;
                 }

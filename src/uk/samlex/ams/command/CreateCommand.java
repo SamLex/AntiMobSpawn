@@ -74,7 +74,7 @@ public class CreateCommand extends BukkitCommand {
 
         switch (args.length) {
             case 2:
-                possiblities = getWorldNames(AntiMobSpawn.instance());
+                possiblities = getWorldNames(AntiMobSpawn.instance().getServer());
                 part = args[1];
                 break;
             default:

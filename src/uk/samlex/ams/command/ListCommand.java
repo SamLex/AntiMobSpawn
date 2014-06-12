@@ -63,7 +63,7 @@ public class ListCommand extends BukkitCommand {
 
         switch (args.length) {
             case 1:
-                possiblities = getWorldNames(AntiMobSpawn.instance());
+                possiblities = getWorldNames(AntiMobSpawn.instance().getServer());
                 part = args[0];
                 break;
             default:

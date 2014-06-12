@@ -68,14 +68,14 @@ public class RemoveCommand extends BukkitCommand {
         switch (args.length) {
             case 1:
                 if (sender instanceof Player) {
-                    possiblities = getZoneNames(((Player) sender).getWorld().getName(), AntiMobSpawn.instance());
+                    possiblities = getZoneNames(((Player) sender).getWorld().getName(), AntiMobSpawn.instance().getDatabase());
                     part = args[0];
                     break;
                 }
             default:
                 return new ArrayList<String>(0);
             case 2:
-                possiblities = getWorldNames(AntiMobSpawn.instance());
+                possiblities = getWorldNames(AntiMobSpawn.instance().getServer());
                 part = args[1];
                 break;
         }

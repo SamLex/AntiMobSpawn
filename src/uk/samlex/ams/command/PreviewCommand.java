@@ -111,12 +111,12 @@ public class PreviewCommand extends BukkitCommand {
                 part = args[3];
                 break;
             case 5:
-                possiblities = getWorldNames(AntiMobSpawn.instance());
+                possiblities = getWorldNames(AntiMobSpawn.instance().getServer());
                 part = args[4];
                 break;
             case 1:
                 if (sender instanceof Player) {
-                    possiblities = getZoneNames(((Player) sender).getWorld().getName(), AntiMobSpawn.instance());
+                    possiblities = getZoneNames(((Player) sender).getWorld().getName(), AntiMobSpawn.instance().getDatabase());
                     part = args[0];
                     break;
                 }
