@@ -22,17 +22,17 @@ import java.util.List;
 
 import javax.persistence.PersistenceException;
 
-import uk.samlex.ams.command.CreateCommand;
-import uk.samlex.ams.command.ListCommand;
-import uk.samlex.ams.command.PreviewCommand;
-import uk.samlex.ams.command.ReloadCommand;
-import uk.samlex.ams.command.RemoveCommand;
-import uk.samlex.ams.command.SetCommand;
+import uk.samlex.bukkitcommon.zone.command.CreateCommand;
+import uk.samlex.bukkitcommon.zone.command.ListCommand;
+import uk.samlex.bukkitcommon.zone.command.PreviewCommand;
+import uk.samlex.bukkitcommon.command.ReloadCommand;
+import uk.samlex.bukkitcommon.zone.command.RemoveCommand;
+import uk.samlex.bukkitcommon.zone.command.SetCommand;
 import uk.samlex.ams.config.ConfigStore;
 import uk.samlex.ams.event.EntitySpawnHandler;
 import uk.samlex.bukkitcommon.BukkitPlugin;
 import uk.samlex.bukkitcommon.command.BukkitCommand;
-import uk.samlex.bukkitcommon.config.WorldZone;
+import uk.samlex.bukkitcommon.zone.config.WorldZone;
 
 // TODO: comment
 public class AntiMobSpawn extends BukkitPlugin {
@@ -69,28 +69,33 @@ public class AntiMobSpawn extends BukkitPlugin {
 
         getServer().getPluginManager().registerEvents(new EntitySpawnHandler(), instance());
 
-        BukkitCommand createCommand = new CreateCommand();
+        BukkitCommand createCommand = new CreateCommand(instance());
         getCommand("ams-create").setExecutor(createCommand);
         getCommand("ams-create").setTabCompleter(createCommand);
 
-        BukkitCommand listCommand = new ListCommand();
+        BukkitCommand listCommand = new ListCommand(instance());
         getCommand("ams-list").setExecutor(listCommand);
         getCommand("ams-list").setTabCompleter(listCommand);
 
-        BukkitCommand previewCommand = new PreviewCommand();
+        BukkitCommand previewCommand = new PreviewCommand(instance());
         getCommand("ams-preview").setExecutor(previewCommand);
         getCommand("ams-preview").setTabCompleter(previewCommand);
 
-        BukkitCommand reloadCommand = new ReloadCommand();
+        BukkitCommand reloadCommand = new ReloadCommand(instance());
         getCommand("ams-reload").setExecutor(reloadCommand);
         getCommand("ams-reload").setTabCompleter(reloadCommand);
 
-        BukkitCommand removeCommand = new RemoveCommand();
+        BukkitCommand removeCommand = new RemoveCommand(instance());
         getCommand("ams-remove").setExecutor(removeCommand);
         getCommand("ams-remove").setTabCompleter(removeCommand);
 
-        BukkitCommand setCommand = new SetCommand();
+        BukkitCommand setCommand = new SetCommand(instance());
         getCommand("ams-set").setExecutor(setCommand);
         getCommand("ams-set").setTabCompleter(setCommand);
+    }
+
+    @Override
+    public void reloadConfig() {
+        ConfigStore.instance().reloadConfig();
     }
 }
